@@ -1,0 +1,32 @@
+BluffinMuffin_Logs_Test
+1ti3gre2
+
+Commands
+int<K> Id, dateTime CommandDate, string Name, bool IsFromServer, int<Servers.Id> ServerId, int<Clients.Id> ClientId, string Type, int?<Games.Id>, string<MAX> Detail
+
+Games
+int<K> Id, int<TableParams.Id> ParamsId, dateTime StartedAt
+
+TableParams: 
+int<K> Id, string<200> TableName, int<GameSubTypes.Id> VariantId, int MinPlayerToStart, int MaxPlayer, int GameSize, string Arguments<2000>, int<LobbyTypes.Id> LobbyId, int<BlindTypes.Id> BlindsId, int<LimitTypes.Id> LimitId, int<Servers.Id> ServerId, dateTime StartedAt
+
+Clients
+int<K> Id, string<20> Ip, string<200>Name, string<200>ClientIdentification, string<20> SupportedProtocol, dateTime StartedAt
+
+Servers
+int<K> Id, string<200>ServerIdentification, string<20> SupportedProtocol, dateTime StartedAt
+
+GameSubTypes:
+int<K> Id, string<100> Name, int<GameTypes.Id> GameTypeId, string<200> Description
+
+GameTypes:
+int<K> Id, string<100> Name, string<200> Description
+
+LobbyTypes:
+int<K> Id, string<100> Name, string<200> Description
+
+BlindTypes:
+int<K> Id, string<100> Name, string<200> Description
+
+LimitTypes:
+int<K> Id, string<100> Name, string<200> Description
