@@ -12,21 +12,22 @@ namespace BluffinMuffin.Logger.DBAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class CtlGameSubType
+    internal partial class ClientEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CtlGameSubType()
+        public ClientEntity()
         {
-            this.TableParamsOfGameSubType = new HashSet<TableParam>();
+            this.CommandsOfClient = new HashSet<CommandEntity>();
         }
     
         public int Id { get; set; }
-        public int GameTypeId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string ClientIdentification { get; set; }
+        public string ImplementedProtocol { get; set; }
+        public System.DateTime ClientStartedAt { get; set; }
+        public string Hostname { get; set; }
+        public string DisplayName { get; set; }
     
-        public virtual CtlGameType GameType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TableParam> TableParamsOfGameSubType { get; set; }
+        internal virtual ICollection<CommandEntity> CommandsOfClient { get; set; }
     }
 }

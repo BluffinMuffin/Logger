@@ -13,11 +13,21 @@ namespace BluffinMuffin.Logger.DBAccess
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class BluffinMuffinLogsEntities : DbContext
+    internal partial class BluffinMuffinLogsEntities : DbContext
     {
         public BluffinMuffinLogsEntities()
             : base("name=BluffinMuffinLogsEntities")
         {
+            AllClients = Set<ClientEntity>();
+            AllCommands = Set<CommandEntity>();
+            AllBlindTypes = Set<BlindTypeEntity>();
+            AllGameSubTypes = Set<GameSubTypeEntity>();
+            AllGameTypes = Set<GameTypeEntity>();
+            AllLimitTypes = Set<LimitTypeEntity>();
+            AllLobbyTypes = Set<LobbyTypeEntity>();
+            AllGames = Set<GameEntity>();
+            AllServers = Set<ServerEntity>();
+            AllTableParams = Set<TableParamEntity>();
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -25,15 +35,15 @@ namespace BluffinMuffin.Logger.DBAccess
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Client> Clients { get; set; }
-        public virtual DbSet<Command> Commands { get; set; }
-        public virtual DbSet<CtlBlindType> CtlBlindTypes { get; set; }
-        public virtual DbSet<CtlGameSubType> CtlGameSubTypes { get; set; }
-        public virtual DbSet<CtlGameType> CtlGameTypes { get; set; }
-        public virtual DbSet<CtlLimitType> CtlLimitTypes { get; set; }
-        public virtual DbSet<CtlLobbyType> CtlLobbyTypes { get; set; }
-        public virtual DbSet<Game> Games { get; set; }
-        public virtual DbSet<Server> Servers { get; set; }
-        public virtual DbSet<TableParam> TableParams { get; set; }
+        internal virtual DbSet<ClientEntity> AllClients { get; set; }
+        internal virtual DbSet<CommandEntity> AllCommands { get; set; }
+        internal virtual DbSet<BlindTypeEntity> AllBlindTypes { get; set; }
+        internal virtual DbSet<GameSubTypeEntity> AllGameSubTypes { get; set; }
+        internal virtual DbSet<GameTypeEntity> AllGameTypes { get; set; }
+        internal virtual DbSet<LimitTypeEntity> AllLimitTypes { get; set; }
+        internal virtual DbSet<LobbyTypeEntity> AllLobbyTypes { get; set; }
+        internal virtual DbSet<GameEntity> AllGames { get; set; }
+        internal virtual DbSet<ServerEntity> AllServers { get; set; }
+        internal virtual DbSet<TableParamEntity> AllTableParams { get; set; }
     }
 }

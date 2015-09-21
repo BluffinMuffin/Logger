@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace BluffinMuffin.Logger.DBAccess
 {
-    public class Class1
+    internal partial class BluffinMuffinLogsEntities
     {
+        public BluffinMuffinLogsEntities(string connString) : base(connString)
+        {
+        }
     }
 }

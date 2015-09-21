@@ -12,12 +12,12 @@ namespace BluffinMuffin.Logger.DBAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class CtlGameType
+    internal partial class GameTypeEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CtlGameType()
+        public GameTypeEntity()
         {
-            this.GameSubTypesOfGameType = new HashSet<CtlGameSubType>();
+            this.GameSubTypesOfGameType = new HashSet<GameSubTypeEntity>();
         }
     
         public int Id { get; set; }
@@ -25,6 +25,6 @@ namespace BluffinMuffin.Logger.DBAccess
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CtlGameSubType> GameSubTypesOfGameType { get; set; }
+        internal virtual ICollection<GameSubTypeEntity> GameSubTypesOfGameType { get; set; }
     }
 }

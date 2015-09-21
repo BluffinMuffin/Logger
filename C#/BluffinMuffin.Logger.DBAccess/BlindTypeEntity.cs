@@ -12,12 +12,12 @@ namespace BluffinMuffin.Logger.DBAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class CtlLimitType
+    internal partial class BlindTypeEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CtlLimitType()
+        public BlindTypeEntity()
         {
-            this.TableParamsOfLimit = new HashSet<TableParam>();
+            this.TableParamsOfBlind = new HashSet<TableParamEntity>();
         }
     
         public int Id { get; set; }
@@ -25,6 +25,6 @@ namespace BluffinMuffin.Logger.DBAccess
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TableParam> TableParamsOfLimit { get; set; }
+        internal virtual ICollection<TableParamEntity> TableParamsOfBlind { get; set; }
     }
 }

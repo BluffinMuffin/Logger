@@ -280,7 +280,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BluffinMuffin.Logs" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Client">
+        <EntityType Name="ClientEntity" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -292,7 +292,7 @@
           <Property Name="DisplayName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="CommandsOfClient" Relationship="Self.FK_Commands_Clients" FromRole="Clients" ToRole="Commands" />
         </EntityType>
-        <EntityType Name="Command">
+        <EntityType Name="CommandEntity" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -309,7 +309,7 @@
           <NavigationProperty Name="Game" Relationship="Self.FK_Commands_Games" FromRole="Commands" ToRole="Games" />
           <NavigationProperty Name="Server" Relationship="Self.FK_Commands_Servers" FromRole="Commands" ToRole="Servers" />
         </EntityType>
-        <EntityType Name="CtlBlindType">
+        <EntityType Name="BlindTypeEntity" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -318,7 +318,7 @@
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TableParamsOfBlind" Relationship="Self.FK_TableParams_Control_BlindTypes" FromRole="Control_BlindTypes" ToRole="TableParams" />
         </EntityType>
-        <EntityType Name="CtlGameSubType">
+        <EntityType Name="GameSubTypeEntity" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -329,7 +329,7 @@
           <NavigationProperty Name="GameType" Relationship="Self.FK_Control_GameSubTypes_Control_GameTypes" FromRole="Control_GameSubTypes" ToRole="Control_GameTypes" />
           <NavigationProperty Name="TableParamsOfGameSubType" Relationship="Self.FK_TableParams_Control_GameSubTypes" FromRole="Control_GameSubTypes" ToRole="TableParams" />
         </EntityType>
-        <EntityType Name="CtlGameType">
+        <EntityType Name="GameTypeEntity" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -338,7 +338,7 @@
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="GameSubTypesOfGameType" Relationship="Self.FK_Control_GameSubTypes_Control_GameTypes" FromRole="Control_GameTypes" ToRole="Control_GameSubTypes" />
         </EntityType>
-        <EntityType Name="CtlLimitType">
+        <EntityType Name="LimitTypeEntity" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -347,7 +347,7 @@
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TableParamsOfLimit" Relationship="Self.FK_TableParams_Control_LimitTypes" FromRole="Control_LimitTypes" ToRole="TableParams" />
         </EntityType>
-        <EntityType Name="CtlLobbyType">
+        <EntityType Name="LobbyTypeEntity" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -356,7 +356,7 @@
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TableParamsOfLobby" Relationship="Self.FK_TableParams_Control_LobbyTypes" FromRole="Control_LobbyTypes" ToRole="TableParams" />
         </EntityType>
-        <EntityType Name="Game">
+        <EntityType Name="GameEntity" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -366,7 +366,7 @@
           <NavigationProperty Name="CommandsOfGame" Relationship="Self.FK_Commands_Games" FromRole="Games" ToRole="Commands" />
           <NavigationProperty Name="TableParam" Relationship="Self.FK_Games_TableParams" FromRole="Games" ToRole="TableParams" />
         </EntityType>
-        <EntityType Name="Server">
+        <EntityType Name="ServerEntity" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -377,7 +377,7 @@
           <NavigationProperty Name="CommandsOfServer" Relationship="Self.FK_Commands_Servers" FromRole="Servers" ToRole="Commands" />
           <NavigationProperty Name="TableParamsOfServer" Relationship="Self.FK_TableParams_Servers" FromRole="Servers" ToRole="TableParams" />
         </EntityType>
-        <EntityType Name="TableParam">
+        <EntityType Name="TableParamEntity" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -400,8 +400,8 @@
           <NavigationProperty Name="Server" Relationship="Self.FK_TableParams_Servers" FromRole="TableParams" ToRole="Servers" />
         </EntityType>
         <Association Name="FK_Commands_Clients">
-          <End Role="Clients" Type="Self.Client" Multiplicity="1" />
-          <End Role="Commands" Type="Self.Command" Multiplicity="*" />
+          <End Role="Clients" Type="BluffinMuffin.Logs.ClientEntity" Multiplicity="1" />
+          <End Role="Commands" Type="BluffinMuffin.Logs.CommandEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Clients">
               <PropertyRef Name="Id" />
@@ -412,8 +412,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Commands_Games">
-          <End Role="Games" Type="Self.Game" Multiplicity="0..1" />
-          <End Role="Commands" Type="Self.Command" Multiplicity="*" />
+          <End Role="Games" Type="BluffinMuffin.Logs.GameEntity" Multiplicity="0..1" />
+          <End Role="Commands" Type="BluffinMuffin.Logs.CommandEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Games">
               <PropertyRef Name="Id" />
@@ -424,8 +424,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Commands_Servers">
-          <End Role="Servers" Type="Self.Server" Multiplicity="1" />
-          <End Role="Commands" Type="Self.Command" Multiplicity="*" />
+          <End Role="Servers" Type="BluffinMuffin.Logs.ServerEntity" Multiplicity="1" />
+          <End Role="Commands" Type="BluffinMuffin.Logs.CommandEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Servers">
               <PropertyRef Name="Id" />
@@ -436,8 +436,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TableParams_Control_BlindTypes">
-          <End Role="Control_BlindTypes" Type="BluffinMuffin.Logs.CtlBlindType" Multiplicity="1" />
-          <End Role="TableParams" Type="Self.TableParam" Multiplicity="*" />
+          <End Role="Control_BlindTypes" Type="BluffinMuffin.Logs.BlindTypeEntity" Multiplicity="1" />
+          <End Role="TableParams" Type="BluffinMuffin.Logs.TableParamEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Control_BlindTypes">
               <PropertyRef Name="Id" />
@@ -448,8 +448,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Control_GameSubTypes_Control_GameTypes">
-          <End Role="Control_GameTypes" Type="BluffinMuffin.Logs.CtlGameType" Multiplicity="1" />
-          <End Role="Control_GameSubTypes" Type="BluffinMuffin.Logs.CtlGameSubType" Multiplicity="*" />
+          <End Role="Control_GameTypes" Type="BluffinMuffin.Logs.GameTypeEntity" Multiplicity="1" />
+          <End Role="Control_GameSubTypes" Type="BluffinMuffin.Logs.GameSubTypeEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Control_GameTypes">
               <PropertyRef Name="Id" />
@@ -460,8 +460,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TableParams_Control_GameSubTypes">
-          <End Role="Control_GameSubTypes" Type="BluffinMuffin.Logs.CtlGameSubType" Multiplicity="1" />
-          <End Role="TableParams" Type="Self.TableParam" Multiplicity="*" />
+          <End Role="Control_GameSubTypes" Type="BluffinMuffin.Logs.GameSubTypeEntity" Multiplicity="1" />
+          <End Role="TableParams" Type="BluffinMuffin.Logs.TableParamEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Control_GameSubTypes">
               <PropertyRef Name="Id" />
@@ -472,8 +472,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TableParams_Control_LimitTypes">
-          <End Role="Control_LimitTypes" Type="BluffinMuffin.Logs.CtlLimitType" Multiplicity="1" />
-          <End Role="TableParams" Type="Self.TableParam" Multiplicity="*" />
+          <End Role="Control_LimitTypes" Type="BluffinMuffin.Logs.LimitTypeEntity" Multiplicity="1" />
+          <End Role="TableParams" Type="BluffinMuffin.Logs.TableParamEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Control_LimitTypes">
               <PropertyRef Name="Id" />
@@ -484,8 +484,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TableParams_Control_LobbyTypes">
-          <End Role="Control_LobbyTypes" Type="BluffinMuffin.Logs.CtlLobbyType" Multiplicity="1" />
-          <End Role="TableParams" Type="Self.TableParam" Multiplicity="*" />
+          <End Role="Control_LobbyTypes" Type="BluffinMuffin.Logs.LobbyTypeEntity" Multiplicity="1" />
+          <End Role="TableParams" Type="BluffinMuffin.Logs.TableParamEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Control_LobbyTypes">
               <PropertyRef Name="Id" />
@@ -496,8 +496,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Games_TableParams">
-          <End Role="TableParams" Type="Self.TableParam" Multiplicity="1" />
-          <End Role="Games" Type="Self.Game" Multiplicity="*" />
+          <End Role="TableParams" Type="BluffinMuffin.Logs.TableParamEntity" Multiplicity="1" />
+          <End Role="Games" Type="BluffinMuffin.Logs.GameEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TableParams">
               <PropertyRef Name="Id" />
@@ -508,8 +508,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TableParams_Servers">
-          <End Role="Servers" Type="Self.Server" Multiplicity="1" />
-          <End Role="TableParams" Type="Self.TableParam" Multiplicity="*" />
+          <End Role="Servers" Type="BluffinMuffin.Logs.ServerEntity" Multiplicity="1" />
+          <End Role="TableParams" Type="BluffinMuffin.Logs.TableParamEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Servers">
               <PropertyRef Name="Id" />
@@ -519,56 +519,56 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="BluffinMuffinLogsEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Clients" EntityType="Self.Client" />
-          <EntitySet Name="Commands" EntityType="Self.Command" />
-          <EntitySet Name="CtlBlindTypes" EntityType="BluffinMuffin.Logs.CtlBlindType" />
-          <EntitySet Name="CtlGameSubTypes" EntityType="BluffinMuffin.Logs.CtlGameSubType" />
-          <EntitySet Name="CtlGameTypes" EntityType="BluffinMuffin.Logs.CtlGameType" />
-          <EntitySet Name="CtlLimitTypes" EntityType="BluffinMuffin.Logs.CtlLimitType" />
-          <EntitySet Name="CtlLobbyTypes" EntityType="BluffinMuffin.Logs.CtlLobbyType" />
-          <EntitySet Name="Games" EntityType="Self.Game" />
-          <EntitySet Name="Servers" EntityType="Self.Server" />
-          <EntitySet Name="TableParams" EntityType="Self.TableParam" />
+        <EntityContainer Name="BluffinMuffinLogsEntities" annotation:LazyLoadingEnabled="true" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+          <EntitySet Name="AllClients" EntityType="BluffinMuffin.Logs.ClientEntity" a:GetterAccess="Internal" />
+          <EntitySet Name="AllCommands" EntityType="BluffinMuffin.Logs.CommandEntity" a:GetterAccess="Internal" />
+          <EntitySet Name="AllBlindTypes" EntityType="BluffinMuffin.Logs.BlindTypeEntity" a:GetterAccess="Internal" />
+          <EntitySet Name="AllGameSubTypes" EntityType="BluffinMuffin.Logs.GameSubTypeEntity" a:GetterAccess="Internal" />
+          <EntitySet Name="AllGameTypes" EntityType="BluffinMuffin.Logs.GameTypeEntity" a:GetterAccess="Internal" />
+          <EntitySet Name="AllLimitTypes" EntityType="BluffinMuffin.Logs.LimitTypeEntity" a:GetterAccess="Internal" />
+          <EntitySet Name="AllLobbyTypes" EntityType="BluffinMuffin.Logs.LobbyTypeEntity" a:GetterAccess="Internal" />
+          <EntitySet Name="AllGames" EntityType="BluffinMuffin.Logs.GameEntity" a:GetterAccess="Internal" />
+          <EntitySet Name="AllServers" EntityType="BluffinMuffin.Logs.ServerEntity" a:GetterAccess="Internal" />
+          <EntitySet Name="AllTableParams" EntityType="BluffinMuffin.Logs.TableParamEntity" a:GetterAccess="Internal" />
           <AssociationSet Name="FK_Commands_Clients" Association="Self.FK_Commands_Clients">
-            <End Role="Clients" EntitySet="Clients" />
-            <End Role="Commands" EntitySet="Commands" />
+            <End Role="Clients" EntitySet="AllClients" />
+            <End Role="Commands" EntitySet="AllCommands" />
           </AssociationSet>
           <AssociationSet Name="FK_Commands_Games" Association="Self.FK_Commands_Games">
-            <End Role="Games" EntitySet="Games" />
-            <End Role="Commands" EntitySet="Commands" />
+            <End Role="Games" EntitySet="AllGames" />
+            <End Role="Commands" EntitySet="AllCommands" />
           </AssociationSet>
           <AssociationSet Name="FK_Commands_Servers" Association="Self.FK_Commands_Servers">
-            <End Role="Servers" EntitySet="Servers" />
-            <End Role="Commands" EntitySet="Commands" />
+            <End Role="Servers" EntitySet="AllServers" />
+            <End Role="Commands" EntitySet="AllCommands" />
           </AssociationSet>
           <AssociationSet Name="FK_TableParams_Control_BlindTypes" Association="Self.FK_TableParams_Control_BlindTypes">
-            <End Role="Control_BlindTypes" EntitySet="CtlBlindTypes" />
-            <End Role="TableParams" EntitySet="TableParams" />
+            <End Role="Control_BlindTypes" EntitySet="AllBlindTypes" />
+            <End Role="TableParams" EntitySet="AllTableParams" />
           </AssociationSet>
           <AssociationSet Name="FK_Control_GameSubTypes_Control_GameTypes" Association="Self.FK_Control_GameSubTypes_Control_GameTypes">
-            <End Role="Control_GameTypes" EntitySet="CtlGameTypes" />
-            <End Role="Control_GameSubTypes" EntitySet="CtlGameSubTypes" />
+            <End Role="Control_GameTypes" EntitySet="AllGameTypes" />
+            <End Role="Control_GameSubTypes" EntitySet="AllGameSubTypes" />
           </AssociationSet>
           <AssociationSet Name="FK_TableParams_Control_GameSubTypes" Association="Self.FK_TableParams_Control_GameSubTypes">
-            <End Role="Control_GameSubTypes" EntitySet="CtlGameSubTypes" />
-            <End Role="TableParams" EntitySet="TableParams" />
+            <End Role="Control_GameSubTypes" EntitySet="AllGameSubTypes" />
+            <End Role="TableParams" EntitySet="AllTableParams" />
           </AssociationSet>
           <AssociationSet Name="FK_TableParams_Control_LimitTypes" Association="Self.FK_TableParams_Control_LimitTypes">
-            <End Role="Control_LimitTypes" EntitySet="CtlLimitTypes" />
-            <End Role="TableParams" EntitySet="TableParams" />
+            <End Role="Control_LimitTypes" EntitySet="AllLimitTypes" />
+            <End Role="TableParams" EntitySet="AllTableParams" />
           </AssociationSet>
           <AssociationSet Name="FK_TableParams_Control_LobbyTypes" Association="Self.FK_TableParams_Control_LobbyTypes">
-            <End Role="Control_LobbyTypes" EntitySet="CtlLobbyTypes" />
-            <End Role="TableParams" EntitySet="TableParams" />
+            <End Role="Control_LobbyTypes" EntitySet="AllLobbyTypes" />
+            <End Role="TableParams" EntitySet="AllTableParams" />
           </AssociationSet>
           <AssociationSet Name="FK_Games_TableParams" Association="Self.FK_Games_TableParams">
-            <End Role="TableParams" EntitySet="TableParams" />
-            <End Role="Games" EntitySet="Games" />
+            <End Role="TableParams" EntitySet="AllTableParams" />
+            <End Role="Games" EntitySet="AllGames" />
           </AssociationSet>
           <AssociationSet Name="FK_TableParams_Servers" Association="Self.FK_TableParams_Servers">
-            <End Role="Servers" EntitySet="Servers" />
-            <End Role="TableParams" EntitySet="TableParams" />
+            <End Role="Servers" EntitySet="AllServers" />
+            <End Role="TableParams" EntitySet="AllTableParams" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -577,8 +577,8 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="BluffinMuffinLogsStoreContainer" CdmEntityContainer="BluffinMuffinLogsEntities">
-          <EntitySetMapping Name="Clients">
-            <EntityTypeMapping TypeName="BluffinMuffin.Logs.Client">
+          <EntitySetMapping Name="AllClients">
+            <EntityTypeMapping TypeName="BluffinMuffin.Logs.ClientEntity">
               <MappingFragment StoreEntitySet="Clients">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ClientIdentification" ColumnName="ClientIdentification" />
@@ -589,8 +589,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Commands">
-            <EntityTypeMapping TypeName="BluffinMuffin.Logs.Command">
+          <EntitySetMapping Name="AllCommands">
+            <EntityTypeMapping TypeName="BluffinMuffin.Logs.CommandEntity">
               <MappingFragment StoreEntitySet="Commands">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ExecutionTime" ColumnName="ExecutionTime" />
@@ -604,8 +604,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CtlBlindTypes">
-            <EntityTypeMapping TypeName="BluffinMuffin.Logs.CtlBlindType">
+          <EntitySetMapping Name="AllBlindTypes">
+            <EntityTypeMapping TypeName="BluffinMuffin.Logs.BlindTypeEntity">
               <MappingFragment StoreEntitySet="Control_BlindTypes">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -613,8 +613,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CtlGameSubTypes">
-            <EntityTypeMapping TypeName="BluffinMuffin.Logs.CtlGameSubType">
+          <EntitySetMapping Name="AllGameSubTypes">
+            <EntityTypeMapping TypeName="BluffinMuffin.Logs.GameSubTypeEntity">
               <MappingFragment StoreEntitySet="Control_GameSubTypes">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="GameTypeId" ColumnName="GameTypeId" />
@@ -623,8 +623,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CtlGameTypes">
-            <EntityTypeMapping TypeName="BluffinMuffin.Logs.CtlGameType">
+          <EntitySetMapping Name="AllGameTypes">
+            <EntityTypeMapping TypeName="BluffinMuffin.Logs.GameTypeEntity">
               <MappingFragment StoreEntitySet="Control_GameTypes">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -632,8 +632,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CtlLimitTypes">
-            <EntityTypeMapping TypeName="BluffinMuffin.Logs.CtlLimitType">
+          <EntitySetMapping Name="AllLimitTypes">
+            <EntityTypeMapping TypeName="BluffinMuffin.Logs.LimitTypeEntity">
               <MappingFragment StoreEntitySet="Control_LimitTypes">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -641,8 +641,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CtlLobbyTypes">
-            <EntityTypeMapping TypeName="BluffinMuffin.Logs.CtlLobbyType">
+          <EntitySetMapping Name="AllLobbyTypes">
+            <EntityTypeMapping TypeName="BluffinMuffin.Logs.LobbyTypeEntity">
               <MappingFragment StoreEntitySet="Control_LobbyTypes">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -650,8 +650,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Games">
-            <EntityTypeMapping TypeName="BluffinMuffin.Logs.Game">
+          <EntitySetMapping Name="AllGames">
+            <EntityTypeMapping TypeName="BluffinMuffin.Logs.GameEntity">
               <MappingFragment StoreEntitySet="Games">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="TableParamId" ColumnName="TableParamId" />
@@ -659,8 +659,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Servers">
-            <EntityTypeMapping TypeName="BluffinMuffin.Logs.Server">
+          <EntitySetMapping Name="AllServers">
+            <EntityTypeMapping TypeName="BluffinMuffin.Logs.ServerEntity">
               <MappingFragment StoreEntitySet="Servers">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ServerIdentification" ColumnName="ServerIdentification" />
@@ -669,8 +669,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TableParams">
-            <EntityTypeMapping TypeName="BluffinMuffin.Logs.TableParam">
+          <EntitySetMapping Name="AllTableParams">
+            <EntityTypeMapping TypeName="BluffinMuffin.Logs.TableParamEntity">
               <MappingFragment StoreEntitySet="TableParams">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="TableName" ColumnName="TableName" />

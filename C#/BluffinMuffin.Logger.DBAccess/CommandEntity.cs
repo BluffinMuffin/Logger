@@ -12,19 +12,20 @@ namespace BluffinMuffin.Logger.DBAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class CtlLobbyType
+    internal partial class CommandEntity
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CtlLobbyType()
-        {
-            this.TableParamsOfLobby = new HashSet<TableParam>();
-        }
-    
         public int Id { get; set; }
+        public System.DateTime ExecutionTime { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
+        public bool IsFromServer { get; set; }
+        public int ServerId { get; set; }
+        public int ClientId { get; set; }
+        public string Type { get; set; }
+        public Nullable<int> GameId { get; set; }
+        public string Detail { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TableParam> TableParamsOfLobby { get; set; }
+        internal virtual ClientEntity Client { get; set; }
+        internal virtual GameEntity Game { get; set; }
+        internal virtual ServerEntity Server { get; set; }
     }
 }
