@@ -12,7 +12,14 @@ namespace BluffinMuffin.Logger.DBAccess.Demo
         static void Main(string[] args)
         {
             Database.InitDatabase("turnsol.arvixe.com","BluffinMuffin_Logger_Test","1ti3gre2","BluffinMuffin_Logs_Test");
-            new Server("BluffinMuffin.Logger.DBAccess.Demo", new Version(3, 0, 0)).RegisterServer();
+
+            var server = new Server("BluffinMuffin.Logger.DBAccess.Demo", new Version(3, 0, 0));
+            server.RegisterServer();
+
+            var client = new Client("BluffinMuffin.Logger.DBAccess.Demo", new Version(3, 0, 0),"127.0.0.1");
+            client.RegisterClient();
+            client.Identify("SpongeBob");
+
         }
     }
 }

@@ -4,7 +4,7 @@ namespace BluffinMuffin.Logger.DBAccess
 {
     public class Server
     {
-        private bool m_Registered;
+        internal int Id { get; private set; }
 
         public string ServerIdentification { get; }
         public Version ImplementedProtocol { get; }
@@ -17,15 +17,16 @@ namespace BluffinMuffin.Logger.DBAccess
 
         public void RegisterServer()
         {
-            if (m_Registered)
+            if (Id > 0)
                 return;
 
             using (var context = Database.GetContext())
             {
-                context.AllServers.Add(new ServerEntity {ImplementedProtocol = ImplementedProtocol.ToString(3), ServerIdentification = ServerIdentification, ServerStartedAt = DateTime.Now});
+                var s = new ServerEntity {ImplementedProtocol = ImplementedProtocol.ToString(3), ServerIdentification = ServerIdentification, ServerStartedAt = DateTime.Now};
+                context.AllServers.Add(s);
                 context.SaveChanges();
+                Id = s.Id;
             }
-            m_Registered = true;
         }
     }
 }

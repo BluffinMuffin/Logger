@@ -14,7 +14,7 @@
           <Property Name="ImplementedProtocol" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="ClientStartedAt" Type="datetime" Nullable="false" />
           <Property Name="Hostname" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="DisplayName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Commands">
           <Key>
@@ -289,7 +289,7 @@
           <Property Name="ImplementedProtocol" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ClientStartedAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Hostname" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DisplayName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CommandsOfClient" Relationship="Self.FK_Commands_Clients" FromRole="Clients" ToRole="Commands" />
         </EntityType>
         <EntityType Name="CommandEntity" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">

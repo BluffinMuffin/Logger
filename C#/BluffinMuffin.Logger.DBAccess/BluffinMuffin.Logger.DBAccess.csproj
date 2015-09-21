@@ -93,6 +93,7 @@
     <Compile Include="LobbyTypeEntity.cs">
       <DependentUpon>BluffinMuffinLogs.tt</DependentUpon>
     </Compile>
+    <Compile Include="Client.cs" />
     <Compile Include="ServerEntity.cs">
       <DependentUpon>BluffinMuffinLogs.tt</DependentUpon>
     </Compile>
