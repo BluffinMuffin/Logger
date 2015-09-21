@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{6D9978FD-759
 	ProjectSection(SolutionItems) = preProject
 		..\Sql\create_db.sql = ..\Sql\create_db.sql
 		..\Sql\dbBluffin.txt = ..\Sql\dbBluffin.txt
+		..\Sql\insert_control.sql = ..\Sql\insert_control.sql
 		..\Sql\Schema.png = ..\Sql\Schema.png
 	EndProjectSection
 EndProject
