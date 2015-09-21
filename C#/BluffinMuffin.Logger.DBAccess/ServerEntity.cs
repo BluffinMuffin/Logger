@@ -12,7 +12,7 @@ namespace BluffinMuffin.Logger.DBAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class ServerEntity
+    internal partial class ServerEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ServerEntity()
@@ -27,8 +27,8 @@ namespace BluffinMuffin.Logger.DBAccess
         public System.DateTime ServerStartedAt { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CommandEntity> CommandsOfServer { get; set; }
+        internal virtual ICollection<CommandEntity> CommandsOfServer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TableParamEntity> TableParamsOfServer { get; set; }
+        internal virtual ICollection<TableParamEntity> TableParamsOfServer { get; set; }
     }
 }

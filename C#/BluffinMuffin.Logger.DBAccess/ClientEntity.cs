@@ -12,7 +12,7 @@ namespace BluffinMuffin.Logger.DBAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class ClientEntity
+    internal partial class ClientEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ClientEntity()
@@ -28,6 +28,6 @@ namespace BluffinMuffin.Logger.DBAccess
         public string DisplayName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CommandEntity> CommandsOfClient { get; set; }
+        internal virtual ICollection<CommandEntity> CommandsOfClient { get; set; }
     }
 }

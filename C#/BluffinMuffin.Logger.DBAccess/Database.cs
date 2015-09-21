@@ -37,7 +37,7 @@ namespace BluffinMuffin.Logger.DBAccess
             m_ConnectionString = entityString.ToString();
         }
 
-        public static BluffinMuffinLogsEntities GetContext()
+        internal static BluffinMuffinLogsEntities GetContext()
         {
             if(m_ConnectionString == null)
                 throw new Exception("Call BluffinMuffin.Logger.DBAccess.Database.InitDatabase() before using the database.");
