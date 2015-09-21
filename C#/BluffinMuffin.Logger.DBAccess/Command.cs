@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using BluffinMuffin.Logger.DBAccess.Enums;
 
 namespace BluffinMuffin.Logger.DBAccess
 {
@@ -12,72 +11,57 @@ namespace BluffinMuffin.Logger.DBAccess
 
         internal int Id { get; private set; }
 
-        public string Name { get; }
-        public Server Server { get; }
-        public Client Client { get; }
-        public string Detail { get; }
-
-        public Command(string name, Server server, Client client, string detail)
+        private static void RegisterCommand(string name, Server srv, Client cli, string detail, bool isFromServer, string type, Game g = null)
         {
-            Name = name;
-            Server = server;
-            Client = client;
-            Detail = detail;
-        }
-
-        private void RegisterCommand(bool isFromServer, string type)
-        {
-            if (Id > 0)
-                return;
-
             using (var context = Database.GetContext())
             {
-                var client = context.AllClients.Single(x => x.Id == Client.Id);
-                var server = context.AllServers.Single(x => x.Id == Server.Id);
+                var client = context.AllClients.Single(x => x.Id == cli.Id);
+                var server = context.AllServers.Single(x => x.Id == srv.Id);
+                var game = g == null ? null : context.AllGames.Single(x => x.Id == g.Id);
                 var c = new CommandEntity()
                 {
-                    Name = Name,
-                    Detail = Detail,
+                    Name = name,
+                    Detail = detail,
                     IsFromServer = isFromServer,
                     Type = type,
                     Server = server,
                     Client = client,
-                    ExecutionTime = DateTime.Now
+                    ExecutionTime = DateTime.Now,
+                    Game = game
                 };
                 context.AllCommands.Add(c);
                 context.SaveChanges();
-                Id = c.Id;
             }
         }
 
-        public void RegisterGeneralCommandFromServer()
+        public static void RegisterGeneralCommandFromServer(string name, Server srv, Client cli, string detail)
         {
-            RegisterCommand(true, GENERAL);
+            RegisterCommand(name, srv, cli, detail, true, GENERAL);
         }
 
-        public void RegisterGeneralCommandFromClient()
+        public static void RegisterGeneralCommandFromClient(string name, Server srv, Client cli, string detail)
         {
-            RegisterCommand(false, GENERAL);
+            RegisterCommand(name, srv, cli, detail, false, GENERAL);
         }
 
-        public void RegisterLobbyCommandFromServer()
+        public static void RegisterLobbyCommandFromServer(string name, Server srv, Client cli, string detail)
         {
-            RegisterCommand(true, LOBBY);
+            RegisterCommand(name, srv, cli, detail, true, LOBBY);
         }
 
-        public void RegisterLobbyCommandFromClient()
+        public static void RegisterLobbyCommandFromClient(string name, Server srv, Client cli, string detail)
         {
-            RegisterCommand(false, LOBBY);
+            RegisterCommand(name, srv, cli, detail, false, LOBBY);
         }
 
-        public void RegisterGameCommandFromServer()
+        public static void RegisterGameCommandFromServer(string name, Game game, Client cli, string detail)
         {
-            RegisterCommand(true, GAME);
+            RegisterCommand(name, game.Table.Server, cli, detail, true, GAME, game);
         }
 
-        public void RegisterGameCommandFromClient()
+        public static void RegisterGameCommandFromClient(string name, Game game, Client cli, string detail)
         {
-            RegisterCommand(false, GAME);
+            RegisterCommand(name, game.Table.Server, cli, detail, false, GAME, game);
         }
     }
 }
