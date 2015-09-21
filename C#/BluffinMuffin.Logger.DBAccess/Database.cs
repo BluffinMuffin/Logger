@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data.Entity.Core.EntityClient;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.String;
 
 namespace BluffinMuffin.Logger.DBAccess
 {
@@ -12,8 +14,13 @@ namespace BluffinMuffin.Logger.DBAccess
     {
         private static string m_ConnectionString;
 
+        internal static BlockingCollection<Command> CommandsToLog { get; } = new BlockingCollection<Command>();
+
         public static void InitDatabase(string hostname, string username, string password, string database)
         {
+            if (!IsNullOrEmpty(m_ConnectionString))
+                return;
+
             //Build an SQL connection string
             var sqlString = new SqlConnectionStringBuilder()
             {
@@ -35,6 +42,13 @@ namespace BluffinMuffin.Logger.DBAccess
             };
 
             m_ConnectionString = entityString.ToString();
+            Task.Factory.StartNew(LogCommands);
+        }
+
+        private static void LogCommands()
+        {
+            foreach (Command c in CommandsToLog.GetConsumingEnumerable())
+                c.ExecuteRegistering();
         }
 
         internal static BluffinMuffinLogsEntities GetContext()
