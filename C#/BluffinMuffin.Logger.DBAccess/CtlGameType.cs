@@ -17,7 +17,7 @@ namespace BluffinMuffin.Logger.DBAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CtlGameType()
         {
-            this.Control_GameSubTypes = new HashSet<CtlGameSubType>();
+            this.GameSubTypesOfGameType = new HashSet<CtlGameSubType>();
         }
     
         public int Id { get; set; }
@@ -25,6 +25,6 @@ namespace BluffinMuffin.Logger.DBAccess
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CtlGameSubType> Control_GameSubTypes { get; set; }
+        public virtual ICollection<CtlGameSubType> GameSubTypesOfGameType { get; set; }
     }
 }

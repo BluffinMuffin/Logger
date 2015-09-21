@@ -17,7 +17,7 @@ namespace BluffinMuffin.Logger.DBAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Client()
         {
-            this.Commands = new HashSet<Command>();
+            this.CommandsOfClient = new HashSet<Command>();
         }
     
         public int Id { get; set; }
@@ -28,6 +28,6 @@ namespace BluffinMuffin.Logger.DBAccess
         public string DisplayName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Command> Commands { get; set; }
+        public virtual ICollection<Command> CommandsOfClient { get; set; }
     }
 }

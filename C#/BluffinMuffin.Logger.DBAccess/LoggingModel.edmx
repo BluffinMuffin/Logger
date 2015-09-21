@@ -290,7 +290,7 @@
           <Property Name="ClientStartedAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Hostname" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DisplayName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Commands" Relationship="Self.FK_Commands_Clients" FromRole="Clients" ToRole="Commands" />
+          <NavigationProperty Name="CommandsOfClient" Relationship="Self.FK_Commands_Clients" FromRole="Clients" ToRole="Commands" />
         </EntityType>
         <EntityType Name="Command">
           <Key>
@@ -316,7 +316,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="TableParams" Relationship="Self.FK_TableParams_Control_BlindTypes" FromRole="Control_BlindTypes" ToRole="TableParams" />
+          <NavigationProperty Name="TableParamsOfBlind" Relationship="Self.FK_TableParams_Control_BlindTypes" FromRole="Control_BlindTypes" ToRole="TableParams" />
         </EntityType>
         <EntityType Name="CtlGameSubType">
           <Key>
@@ -326,8 +326,8 @@
           <Property Name="GameTypeId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Control_GameTypes" Relationship="Self.FK_Control_GameSubTypes_Control_GameTypes" FromRole="Control_GameSubTypes" ToRole="Control_GameTypes" />
-          <NavigationProperty Name="TableParams" Relationship="Self.FK_TableParams_Control_GameSubTypes" FromRole="Control_GameSubTypes" ToRole="TableParams" />
+          <NavigationProperty Name="GameType" Relationship="Self.FK_Control_GameSubTypes_Control_GameTypes" FromRole="Control_GameSubTypes" ToRole="Control_GameTypes" />
+          <NavigationProperty Name="TableParamsOfGameSubType" Relationship="Self.FK_TableParams_Control_GameSubTypes" FromRole="Control_GameSubTypes" ToRole="TableParams" />
         </EntityType>
         <EntityType Name="CtlGameType">
           <Key>
@@ -336,7 +336,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Control_GameSubTypes" Relationship="Self.FK_Control_GameSubTypes_Control_GameTypes" FromRole="Control_GameTypes" ToRole="Control_GameSubTypes" />
+          <NavigationProperty Name="GameSubTypesOfGameType" Relationship="Self.FK_Control_GameSubTypes_Control_GameTypes" FromRole="Control_GameTypes" ToRole="Control_GameSubTypes" />
         </EntityType>
         <EntityType Name="CtlLimitType">
           <Key>
@@ -345,7 +345,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="TableParams" Relationship="Self.FK_TableParams_Control_LimitTypes" FromRole="Control_LimitTypes" ToRole="TableParams" />
+          <NavigationProperty Name="TableParamsOfLimit" Relationship="Self.FK_TableParams_Control_LimitTypes" FromRole="Control_LimitTypes" ToRole="TableParams" />
         </EntityType>
         <EntityType Name="CtlLobbyType">
           <Key>
@@ -354,7 +354,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="TableParams" Relationship="Self.FK_TableParams_Control_LobbyTypes" FromRole="Control_LobbyTypes" ToRole="TableParams" />
+          <NavigationProperty Name="TableParamsOfLobby" Relationship="Self.FK_TableParams_Control_LobbyTypes" FromRole="Control_LobbyTypes" ToRole="TableParams" />
         </EntityType>
         <EntityType Name="Game">
           <Key>
@@ -363,7 +363,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TableParamId" Type="Int32" Nullable="false" />
           <Property Name="GameStartedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Commands" Relationship="Self.FK_Commands_Games" FromRole="Games" ToRole="Commands" />
+          <NavigationProperty Name="CommandsOfGame" Relationship="Self.FK_Commands_Games" FromRole="Games" ToRole="Commands" />
           <NavigationProperty Name="TableParam" Relationship="Self.FK_Games_TableParams" FromRole="Games" ToRole="TableParams" />
         </EntityType>
         <EntityType Name="Server">
@@ -374,8 +374,8 @@
           <Property Name="ServerIdentification" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ImplementedProtocol" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ServerStartedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Commands" Relationship="Self.FK_Commands_Servers" FromRole="Servers" ToRole="Commands" />
-          <NavigationProperty Name="TableParams" Relationship="Self.FK_TableParams_Servers" FromRole="Servers" ToRole="TableParams" />
+          <NavigationProperty Name="CommandsOfServer" Relationship="Self.FK_Commands_Servers" FromRole="Servers" ToRole="Commands" />
+          <NavigationProperty Name="TableParamsOfServer" Relationship="Self.FK_TableParams_Servers" FromRole="Servers" ToRole="TableParams" />
         </EntityType>
         <EntityType Name="TableParam">
           <Key>
@@ -392,11 +392,11 @@
           <Property Name="LimitTypeId" Type="Int32" Nullable="false" />
           <Property Name="ServerId" Type="Int32" Nullable="false" />
           <Property Name="TableStartedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Control_BlindTypes" Relationship="Self.FK_TableParams_Control_BlindTypes" FromRole="TableParams" ToRole="Control_BlindTypes" />
-          <NavigationProperty Name="Control_GameSubTypes" Relationship="Self.FK_TableParams_Control_GameSubTypes" FromRole="TableParams" ToRole="Control_GameSubTypes" />
-          <NavigationProperty Name="Control_LimitTypes" Relationship="Self.FK_TableParams_Control_LimitTypes" FromRole="TableParams" ToRole="Control_LimitTypes" />
-          <NavigationProperty Name="Control_LobbyTypes" Relationship="Self.FK_TableParams_Control_LobbyTypes" FromRole="TableParams" ToRole="Control_LobbyTypes" />
-          <NavigationProperty Name="Games" Relationship="Self.FK_Games_TableParams" FromRole="TableParams" ToRole="Games" />
+          <NavigationProperty Name="BlindType" Relationship="Self.FK_TableParams_Control_BlindTypes" FromRole="TableParams" ToRole="Control_BlindTypes" />
+          <NavigationProperty Name="GameSubType" Relationship="Self.FK_TableParams_Control_GameSubTypes" FromRole="TableParams" ToRole="Control_GameSubTypes" />
+          <NavigationProperty Name="LimitType" Relationship="Self.FK_TableParams_Control_LimitTypes" FromRole="TableParams" ToRole="Control_LimitTypes" />
+          <NavigationProperty Name="LobbyType" Relationship="Self.FK_TableParams_Control_LobbyTypes" FromRole="TableParams" ToRole="Control_LobbyTypes" />
+          <NavigationProperty Name="GamesOfTableParam" Relationship="Self.FK_Games_TableParams" FromRole="TableParams" ToRole="Games" />
           <NavigationProperty Name="Server" Relationship="Self.FK_TableParams_Servers" FromRole="TableParams" ToRole="Servers" />
         </EntityType>
         <Association Name="FK_Commands_Clients">

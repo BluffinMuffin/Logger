@@ -17,7 +17,7 @@ namespace BluffinMuffin.Logger.DBAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CtlLimitType()
         {
-            this.TableParams = new HashSet<TableParam>();
+            this.TableParamsOfLimit = new HashSet<TableParam>();
         }
     
         public int Id { get; set; }
@@ -25,6 +25,6 @@ namespace BluffinMuffin.Logger.DBAccess
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TableParam> TableParams { get; set; }
+        public virtual ICollection<TableParam> TableParamsOfLimit { get; set; }
     }
 }

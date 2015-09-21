@@ -17,7 +17,7 @@ namespace BluffinMuffin.Logger.DBAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TableParam()
         {
-            this.Games = new HashSet<Game>();
+            this.GamesOfTableParam = new HashSet<Game>();
         }
     
         public int Id { get; set; }
@@ -32,12 +32,12 @@ namespace BluffinMuffin.Logger.DBAccess
         public int ServerId { get; set; }
         public System.DateTime TableStartedAt { get; set; }
     
-        public virtual CtlBlindType Control_BlindTypes { get; set; }
-        public virtual CtlGameSubType Control_GameSubTypes { get; set; }
-        public virtual CtlLimitType Control_LimitTypes { get; set; }
-        public virtual CtlLobbyType Control_LobbyTypes { get; set; }
+        public virtual CtlBlindType BlindType { get; set; }
+        public virtual CtlGameSubType GameSubType { get; set; }
+        public virtual CtlLimitType LimitType { get; set; }
+        public virtual CtlLobbyType LobbyType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Game> Games { get; set; }
+        public virtual ICollection<Game> GamesOfTableParam { get; set; }
         public virtual Server Server { get; set; }
     }
 }

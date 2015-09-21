@@ -17,8 +17,8 @@ namespace BluffinMuffin.Logger.DBAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Server()
         {
-            this.Commands = new HashSet<Command>();
-            this.TableParams = new HashSet<TableParam>();
+            this.CommandsOfServer = new HashSet<Command>();
+            this.TableParamsOfServer = new HashSet<TableParam>();
         }
     
         public int Id { get; set; }
@@ -27,8 +27,8 @@ namespace BluffinMuffin.Logger.DBAccess
         public System.DateTime ServerStartedAt { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Command> Commands { get; set; }
+        public virtual ICollection<Command> CommandsOfServer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TableParam> TableParams { get; set; }
+        public virtual ICollection<TableParam> TableParamsOfServer { get; set; }
     }
 }
