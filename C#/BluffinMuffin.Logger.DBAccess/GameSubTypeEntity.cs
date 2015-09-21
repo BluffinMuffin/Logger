@@ -12,12 +12,12 @@ namespace BluffinMuffin.Logger.DBAccess
     using System;
     using System.Collections.Generic;
     
-    internal partial class GameSubTypeEntity
+    public partial class GameSubTypeEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public GameSubTypeEntity()
         {
-            this.TableParamsOfGameSubType = new HashSet<TableParamEntity>();
+            this.TableParamsUsingGameSubType = new HashSet<TableParamEntity>();
         }
     
         public int Id { get; set; }
@@ -25,8 +25,8 @@ namespace BluffinMuffin.Logger.DBAccess
         public string Name { get; set; }
         public string Description { get; set; }
     
-        internal virtual GameTypeEntity GameType { get; set; }
+        public virtual GameTypeEntity GameType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        internal virtual ICollection<TableParamEntity> TableParamsOfGameSubType { get; set; }
+        public virtual ICollection<TableParamEntity> TableParamsUsingGameSubType { get; set; }
     }
 }

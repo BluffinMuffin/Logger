@@ -17,14 +17,14 @@ namespace BluffinMuffin.Logger.DBAccess
 
         public void RegisterServer()
         {
-            Database.CheckIfInitialized();
-
             if (m_Registered)
                 return;
-            
-            Database.Entities.AllServers.Add(new ServerEntity { ImplementedProtocol = ImplementedProtocol.ToString(3), ServerIdentification = ServerIdentification, ServerStartedAt = DateTime.Now });
-            Database.Entities.SaveChanges();
 
+            using (var context = Database.GetContext())
+            {
+                context.AllServers.Add(new ServerEntity {ImplementedProtocol = ImplementedProtocol.ToString(3), ServerIdentification = ServerIdentification, ServerStartedAt = DateTime.Now});
+                context.SaveChanges();
+            }
             m_Registered = true;
         }
     }

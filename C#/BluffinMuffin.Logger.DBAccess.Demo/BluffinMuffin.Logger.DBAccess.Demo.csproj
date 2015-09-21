@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{124B3C37-BA72-4648-AE52-5B9DA5F3A241}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{2B990BBA-CB11-4D36-96A4-107908A944B0}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BluffinMuffin.Logger.DBAccess</RootNamespace>
-    <AssemblyName>BluffinMuffin.Logger.DBAccess</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>BluffinMuffin.Logger.DBAccess.Demo</RootNamespace>
+    <AssemblyName>BluffinMuffin.Logger.DBAccess.Demo</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -42,6 +44,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -52,81 +55,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlindTypeEntity.cs">
-      <DependentUpon>BluffinMuffinLogs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="BluffinMuffinLogs.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BluffinMuffinLogs.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="BluffinMuffinLogs.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BluffinMuffinLogs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="BluffinMuffinLogsEntities.cs" />
-    <Compile Include="ClientEntity.cs">
-      <DependentUpon>BluffinMuffinLogs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CommandEntity.cs">
-      <DependentUpon>BluffinMuffinLogs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Database.cs" />
-    <Compile Include="BluffinMuffinLogs.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BluffinMuffinLogs.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="GameEntity.cs">
-      <DependentUpon>BluffinMuffinLogs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GameSubTypeEntity.cs">
-      <DependentUpon>BluffinMuffinLogs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GameTypeEntity.cs">
-      <DependentUpon>BluffinMuffinLogs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="LimitTypeEntity.cs">
-      <DependentUpon>BluffinMuffinLogs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="LobbyTypeEntity.cs">
-      <DependentUpon>BluffinMuffinLogs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ServerEntity.cs">
-      <DependentUpon>BluffinMuffinLogs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Server.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TableParamEntity.cs">
-      <DependentUpon>BluffinMuffinLogs.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="BluffinMuffinLogs.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>BluffinMuffinLogs.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="BluffinMuffinLogs.edmx.diagram">
-      <DependentUpon>BluffinMuffinLogs.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BluffinMuffinLogs.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>BluffinMuffinLogs.Context.cs</LastGenOutput>
-      <DependentUpon>BluffinMuffinLogs.edmx</DependentUpon>
-    </Content>
-    <Content Include="BluffinMuffinLogs.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>BluffinMuffinLogs.cs</LastGenOutput>
-      <DependentUpon>BluffinMuffinLogs.edmx</DependentUpon>
-    </Content>
+    <ProjectReference Include="..\BluffinMuffin.Logger.DBAccess\BluffinMuffin.Logger.DBAccess.csproj">
+      <Project>{124b3c37-ba72-4648-ae52-5b9da5f3a241}</Project>
+      <Name>BluffinMuffin.Logger.DBAccess</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

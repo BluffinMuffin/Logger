@@ -10,36 +10,38 @@ namespace BluffinMuffin.Logger.DBAccess
 {
     public static class Database
     {
-        private static BluffinMuffinLogsEntities m_Db = null;
-
-        internal static BluffinMuffinLogsEntities Entities => m_Db;
+        private static string m_ConnectionString;
 
         public static void InitDatabase(string hostname, string username, string password, string database)
         {
             //Build an SQL connection string
-            SqlConnectionStringBuilder sqlString = new SqlConnectionStringBuilder()
+            var sqlString = new SqlConnectionStringBuilder()
             {
                 DataSource = hostname,
                 InitialCatalog = database,
                 UserID = username,
-                Password = password
+                Password = password,
+                ApplicationName = "EntityFramework",
+                MultipleActiveResultSets = true,
+                PersistSecurityInfo = true
             };
 
             //Build an entity framework connection string
-            EntityConnectionStringBuilder entityString = new EntityConnectionStringBuilder()
+            var entityString = new EntityConnectionStringBuilder()
             {
                 Provider = "System.Data.SqlClient",
-                Metadata = "res://*/LoggingModel.csdl|res://*/LoggingModel.ssdl|res://*/LoggingModel.msl",
+                Metadata = "res://*/BluffinMuffinLogs.csdl|res://*/BluffinMuffinLogs.ssdl|res://*/BluffinMuffinLogs.msl",
                 ProviderConnectionString = sqlString.ToString()
             };
 
-            m_Db = new BluffinMuffinLogsEntities(entityString.ToString());
+            m_ConnectionString = entityString.ToString();
         }
 
-        public static void CheckIfInitialized()
+        public static BluffinMuffinLogsEntities GetContext()
         {
-            if(m_Db == null)
+            if(m_ConnectionString == null)
                 throw new Exception("Call BluffinMuffin.Logger.DBAccess.Database.InitDatabase() before using the database.");
+            return new BluffinMuffinLogsEntities(m_ConnectionString);
         }
     }
 }

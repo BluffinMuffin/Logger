@@ -12,12 +12,12 @@ namespace BluffinMuffin.Logger.DBAccess
     using System;
     using System.Collections.Generic;
     
-    internal partial class LobbyTypeEntity
+    public partial class LobbyTypeEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LobbyTypeEntity()
         {
-            this.TableParamsOfLobby = new HashSet<TableParamEntity>();
+            this.TableParamsUsingLobby = new HashSet<TableParamEntity>();
         }
     
         public int Id { get; set; }
@@ -25,6 +25,6 @@ namespace BluffinMuffin.Logger.DBAccess
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        internal virtual ICollection<TableParamEntity> TableParamsOfLobby { get; set; }
+        public virtual ICollection<TableParamEntity> TableParamsUsingLobby { get; set; }
     }
 }

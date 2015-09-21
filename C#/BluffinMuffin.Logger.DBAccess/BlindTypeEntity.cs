@@ -12,12 +12,12 @@ namespace BluffinMuffin.Logger.DBAccess
     using System;
     using System.Collections.Generic;
     
-    internal partial class BlindTypeEntity
+    public partial class BlindTypeEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public BlindTypeEntity()
         {
-            this.TableParamsOfBlind = new HashSet<TableParamEntity>();
+            this.TableParamsUsingBlind = new HashSet<TableParamEntity>();
         }
     
         public int Id { get; set; }
@@ -25,6 +25,6 @@ namespace BluffinMuffin.Logger.DBAccess
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        internal virtual ICollection<TableParamEntity> TableParamsOfBlind { get; set; }
+        public virtual ICollection<TableParamEntity> TableParamsUsingBlind { get; set; }
     }
 }
