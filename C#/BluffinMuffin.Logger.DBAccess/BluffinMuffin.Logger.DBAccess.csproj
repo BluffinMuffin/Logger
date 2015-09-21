@@ -99,6 +99,7 @@
       <DependentUpon>BluffinMuffinLogs.tt</DependentUpon>
     </Compile>
     <Compile Include="Client.cs" />
+    <Compile Include="Command.cs" />
     <Compile Include="Table.cs" />
     <Compile Include="ServerEntity.cs">
       <DependentUpon>BluffinMuffinLogs.tt</DependentUpon>
