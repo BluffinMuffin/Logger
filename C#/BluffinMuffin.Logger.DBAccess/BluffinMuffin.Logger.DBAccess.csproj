@@ -78,6 +78,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BluffinMuffinLogs.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Enums\BlindTypeEnum.cs" />
+    <Compile Include="Enums\GameSubTypeEnum.cs" />
+    <Compile Include="Enums\GameTypeEnum.cs" />
+    <Compile Include="Enums\LimitTypeEnum.cs" />
+    <Compile Include="Enums\LobbyTypeEnum.cs" />
     <Compile Include="GameEntity.cs">
       <DependentUpon>BluffinMuffinLogs.tt</DependentUpon>
     </Compile>
@@ -94,6 +99,7 @@
       <DependentUpon>BluffinMuffinLogs.tt</DependentUpon>
     </Compile>
     <Compile Include="Client.cs" />
+    <Compile Include="Table.cs" />
     <Compile Include="ServerEntity.cs">
       <DependentUpon>BluffinMuffinLogs.tt</DependentUpon>
     </Compile>
@@ -129,6 +135,7 @@
       <DependentUpon>BluffinMuffinLogs.edmx</DependentUpon>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
