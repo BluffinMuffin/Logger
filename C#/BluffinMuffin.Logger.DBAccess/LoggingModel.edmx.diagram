@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e25cbdbf0d38496694d8d91d9c3fdf2d" Name="Diagram1">
+        <EntityTypeShape EntityType="BluffinMuffin.Logs.Client" Width="1.75" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BluffinMuffin.Logs.Command" Width="1.5" PointX="0.875" PointY="0.5" IsExpanded="true" FillColor="LimeGreen" />
+        <EntityTypeShape EntityType="BluffinMuffin.Logs.CtlBlindType" Width="1.5" PointX="6.125" PointY="0.5" IsExpanded="true" FillColor="Orange" />
+        <EntityTypeShape EntityType="BluffinMuffin.Logs.CtlGameSubType" Width="1.625" PointX="9.375" PointY="2.875" IsExpanded="true" FillColor="Orange" />
+        <EntityTypeShape EntityType="BluffinMuffin.Logs.CtlGameType" Width="1.875" PointX="9.375" PointY="0.5" IsExpanded="true" FillColor="Orange" />
+        <EntityTypeShape EntityType="BluffinMuffin.Logs.CtlLimitType" Width="1.5" PointX="7.75" PointY="4.625" IsExpanded="true" FillColor="Orange" />
+        <EntityTypeShape EntityType="BluffinMuffin.Logs.CtlLobbyType" Width="1.5" PointX="7.75" PointY="1.75" IsExpanded="true" FillColor="Orange" />
+        <EntityTypeShape EntityType="BluffinMuffin.Logs.Game" Width="1.5" PointX="3.375" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BluffinMuffin.Logs.Server" Width="1.75" PointX="3" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BluffinMuffin.Logs.TableParam" Width="1.875" PointX="5.125" PointY="2.875" IsExpanded="true" />
+        <AssociationConnector Association="BluffinMuffin.Logs.FK_Commands_Clients" ManuallyRouted="false" />
+        <AssociationConnector Association="BluffinMuffin.Logs.FK_Commands_Games" ManuallyRouted="false" />
+        <AssociationConnector Association="BluffinMuffin.Logs.FK_Commands_Servers" ManuallyRouted="false" />
+        <AssociationConnector Association="BluffinMuffin.Logs.FK_TableParams_Control_BlindTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="BluffinMuffin.Logs.FK_Control_GameSubTypes_Control_GameTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="BluffinMuffin.Logs.FK_TableParams_Control_GameSubTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="BluffinMuffin.Logs.FK_TableParams_Control_LimitTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="BluffinMuffin.Logs.FK_TableParams_Control_LobbyTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="BluffinMuffin.Logs.FK_Games_TableParams" ManuallyRouted="false" />
+        <AssociationConnector Association="BluffinMuffin.Logs.FK_TableParams_Servers" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

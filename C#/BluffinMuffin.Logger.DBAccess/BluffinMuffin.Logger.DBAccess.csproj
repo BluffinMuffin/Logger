@@ -42,6 +42,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,11 +53,78 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Client.cs">
+      <DependentUpon>LoggingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Command.cs">
+      <DependentUpon>LoggingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CtlBlindType.cs">
+      <DependentUpon>LoggingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CtlGameSubType.cs">
+      <DependentUpon>LoggingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CtlGameType.cs">
+      <DependentUpon>LoggingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CtlLimitType.cs">
+      <DependentUpon>LoggingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CtlLobbyType.cs">
+      <DependentUpon>LoggingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Game.cs">
+      <DependentUpon>LoggingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LoggingModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LoggingModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LoggingModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LoggingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LoggingModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LoggingModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Server.cs">
+      <DependentUpon>LoggingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TableParam.cs">
+      <DependentUpon>LoggingModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="LoggingModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>LoggingModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="LoggingModel.edmx.diagram">
+      <DependentUpon>LoggingModel.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LoggingModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LoggingModel.edmx</DependentUpon>
+      <LastGenOutput>LoggingModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="LoggingModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LoggingModel.edmx</DependentUpon>
+      <LastGenOutput>LoggingModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
