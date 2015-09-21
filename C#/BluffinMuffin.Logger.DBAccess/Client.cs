@@ -8,15 +8,13 @@ namespace BluffinMuffin.Logger.DBAccess
     {
         internal int Id { get; private set; }
 
-        public string ClientIdentification { get; }
+        public string ClientIdentification { get; private set; }
         public string Hostname { get; }
         public string DisplayName { get; private set; }
-        public Version ImplementedProtocol { get; }
+        public Version ImplementedProtocol { get; private set; }
 
-        public Client(string clientIdentification, Version implementedProtocol, string hostname)
+        public Client(string hostname)
         {
-            ClientIdentification = clientIdentification;
-            ImplementedProtocol = implementedProtocol;
             Hostname = hostname;
         }
 
@@ -27,10 +25,26 @@ namespace BluffinMuffin.Logger.DBAccess
 
             using (var context = Database.GetContext())
             {
-                var c = new ClientEntity { ImplementedProtocol = ImplementedProtocol.ToString(3), ClientIdentification = ClientIdentification, ClientStartedAt = DateTime.Now, Hostname = Hostname};
+                var c = new ClientEntity { ClientStartedAt = DateTime.Now, Hostname = Hostname};
                 context.AllClients.Add(c);
                 context.SaveChanges();
                 Id = c.Id;
+            }
+        }
+
+        public void SetAdditionalInformation(string clientIdentification, Version implementedProtocol)
+        {
+            if (Id == 0 || !IsNullOrEmpty(ClientIdentification) || ImplementedProtocol != null)
+                return;
+            ClientIdentification = clientIdentification;
+            ImplementedProtocol = implementedProtocol;
+
+            using (var context = Database.GetContext())
+            {
+                var c = context.AllClients.Single(x => x.Id == Id);
+                c.ImplementedProtocol = ImplementedProtocol.ToString(3);
+                c.ClientIdentification = ClientIdentification;
+                context.SaveChanges();
             }
         }
 

@@ -10,8 +10,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ClientIdentification" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="ImplementedProtocol" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="ClientIdentification" Type="nvarchar" MaxLength="200" />
+          <Property Name="ImplementedProtocol" Type="nvarchar" MaxLength="20" />
           <Property Name="ClientStartedAt" Type="datetime" Nullable="false" />
           <Property Name="Hostname" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="DisplayName" Type="nvarchar" MaxLength="200" />
@@ -285,8 +285,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ClientIdentification" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ImplementedProtocol" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClientIdentification" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ImplementedProtocol" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="ClientStartedAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Hostname" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DisplayName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
