@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.Entity;
 using BluffinMuffin.Logger.DBAccess.Enums;
 
 namespace BluffinMuffin.Logger.DBAccess.Demo
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Database.InitDatabase("turnsol.arvixe.com","BluffinMuffin_Logger_Test","1ti3gre2","BluffinMuffin_Logs_Test");
 

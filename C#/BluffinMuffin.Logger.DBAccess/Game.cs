@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using BluffinMuffin.Logger.DBAccess.Enums;
 
 namespace BluffinMuffin.Logger.DBAccess
 {

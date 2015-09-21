@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Threading;
 
 namespace BluffinMuffin.Logger.DBAccess
 {
@@ -30,7 +29,7 @@ namespace BluffinMuffin.Logger.DBAccess
             m_IsFromServer = isFromServer;
             m_Type = type;
             m_Game = game;
-            m_ExecutionTime = DateTime.Now;;
+            m_ExecutionTime = DateTime.Now;
         }
 
         private static void RegisterCommand(string name, Server srv, Client cli, string detail, bool isFromServer, string type, Game g = null)
