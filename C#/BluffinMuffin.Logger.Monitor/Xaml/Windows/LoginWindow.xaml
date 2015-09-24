@@ -1,0 +1,43 @@
+﻿<Window x:Class="BluffinMuffin.Logger.Monitor.Xaml.Windows.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:BluffinMuffin.Logger.Monitor.ViewModels"
+        mc:Ignorable="d"
+        Title="Login - BluffinMuffin Logs Monitor" SizeToContent="Height" Width="400" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <viewModels:LoginViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid Height="Auto" Margin="5" FocusManager.FocusedElement="{Binding ElementName=LstConnections}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="Availables environments:" />
+            <ListBox Grid.Row="1" Grid.Column="0" MinHeight="30" Margin="2"  Name="LstConnections" ItemsSource="{Binding Path=AllEnvironments}" SelectedItem="{Binding Path=SelectedEnvironment}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}">
+                            <TextBlock.InputBindings>
+                                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}, Path=DataContext.ConnectCommand}" />
+                            </TextBlock.InputBindings>
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.InputBindings>
+                    <KeyBinding Command="{Binding Path=ConnectCommand}" Key="Enter" />
+                </ListBox.InputBindings>
+            </ListBox>
+
+            <Button Grid.Row="1" Grid.Column="1" Margin="0,2,0,2" Height="25" VerticalAlignment="Top"  Command="{Binding Path=ConnectCommand}" Content="Connect" />
+
+        </Grid>
+    </Grid>
+</Window>

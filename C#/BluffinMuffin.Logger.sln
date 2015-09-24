@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BluffinMuffin.Logger.DBAcce
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BluffinMuffin.Logger.Monitor", "BluffinMuffin.Logger.Monitor\BluffinMuffin.Logger.Monitor.csproj", "{4E40BD18-768A-47A9-AB71-273EF32D9309}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BluffinMuffin.Logger.Monitor.DataTypes", "BluffinMuffin.Logger.Monitor.DataTypes\BluffinMuffin.Logger.Monitor.DataTypes.csproj", "{870B7F35-F2E3-4044-B203-C2E00A47C3CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{4E40BD18-768A-47A9-AB71-273EF32D9309}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E40BD18-768A-47A9-AB71-273EF32D9309}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E40BD18-768A-47A9-AB71-273EF32D9309}.Release|Any CPU.Build.0 = Release|Any CPU
+		{870B7F35-F2E3-4044-B203-C2E00A47C3CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{870B7F35-F2E3-4044-B203-C2E00A47C3CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{870B7F35-F2E3-4044-B203-C2E00A47C3CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{870B7F35-F2E3-4044-B203-C2E00A47C3CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,33 @@
+﻿<Window x:Class="BluffinMuffin.Logger.Monitor.Xaml.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:BluffinMuffin.Logger.Monitor.ViewModels"
+        xmlns:helpers="clr-namespace:Com.Ericmas001.Wpf.Helpers;assembly=Com.Ericmas001.Wpf"
+        mc:Ignorable="d"
+        Title="{Binding Title}" Height="768" Width="1024" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+    <Window.DataContext>
+        <viewModels:MainViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--<ResourceDictionary Source="/Xaml/Templates/LogCategoryViewModelAssociation.xaml"/>-->
+                <ResourceDictionary Source="/Com.Ericmas001.AppMonitor.Xaml;component/Templates/tabsection/searchcategorysectiontemplate.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <!--<DataTemplate DataType="{x:Type vm:NewSearchViewModel}">
+                <views:MultiCategoriesNewTabView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:CategorySection}">
+                <ContentPresenter ContentTemplate="{StaticResource SearchCategorySectionTemplate}" />
+            </DataTemplate>-->
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <TabControl ItemsSource="{Binding Tabs}"  
+                    ItemTemplate="{StaticResource TabHeaderDataTemplate}" 
+                    SelectedItem="{Binding SelectedTab}"
+                    helpers:TabControlHelper.IsCached="True"/>
+    </Grid>
+</Window>
