@@ -16,7 +16,7 @@ namespace BluffinMuffin.Logger.Monitor.ViewModels
 
         protected override NewTabViewModel CreateNewTab()
         {
-            return null; //new NewSearchViewModel();
+            return new NewSearchViewModel();
         }
     }
 }

@@ -49,13 +49,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\BaseLogCategoriesAttribute.cs" />
+    <Compile Include="Attributes\GroupingCriteriaAttribute.cs" />
+    <Compile Include="Attributes\LogCategoryAttribute.cs" />
+    <Compile Include="Attributes\SearchCriteriaAttribute.cs" />
     <Compile Include="BluffinEnvironment.cs" />
+    <Compile Include="Enums\CriteriaEnum.cs" />
     <Compile Include="Enums\EnvironmentEnum.cs" />
+    <Compile Include="Enums\LogCategoryEnum.cs" />
+    <Compile Include="ExecutedCommand.cs" />
+    <Compile Include="ExecutedCommandInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Attributes\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

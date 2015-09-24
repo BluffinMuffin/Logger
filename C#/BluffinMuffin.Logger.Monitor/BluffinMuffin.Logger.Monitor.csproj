@@ -70,8 +70,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\BaseCategoryViewModel.cs" />
+    <Compile Include="ViewModels\ExecutedCommandCategoryViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Page Include="Xaml\Templates\LogCategoryViewModelAssociation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Xaml\Views\ExecutedCommandCategoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Xaml\Windows\LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -83,6 +93,11 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ViewModels\NewSearchViewModel.cs" />
+    <Compile Include="ViewModels\Sections\CategorySection.cs" />
+    <Compile Include="Xaml\Views\ExecutedCommandCategoryView.xaml.cs">
+      <DependentUpon>ExecutedCommandCategoryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Xaml\Windows\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
@@ -131,8 +146,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
-    <Folder Include="Xaml\Templates\" />
-    <Folder Include="Xaml\Views\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
