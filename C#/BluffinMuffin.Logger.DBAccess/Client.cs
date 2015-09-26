@@ -8,10 +8,10 @@ namespace BluffinMuffin.Logger.DBAccess
     {
         internal int Id { get; private set; }
 
-        public string ClientIdentification { get; private set; }
+        public string ClientIdentification { get; internal set; }
         public string Hostname { get; }
-        public string DisplayName { get; private set; }
-        public Version ImplementedProtocol { get; private set; }
+        public string DisplayName { get; internal set; }
+        public Version ImplementedProtocol { get; internal set; }
 
         public Client(string hostname)
         {

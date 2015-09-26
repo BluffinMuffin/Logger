@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BluffinMuffin.Logger.Monitor.Xaml.Views"
              xmlns:helpers="clr-namespace:Com.Ericmas001.Wpf.Helpers;assembly=Com.Ericmas001.Wpf"
              xmlns:views="clr-namespace:Com.Ericmas001.Wpf.Views;assembly=Com.Ericmas001.Wpf"
              xmlns:customControls="clr-namespace:Com.Ericmas001.Wpf.CustomControls;assembly=Com.Ericmas001.Wpf"
@@ -13,9 +12,9 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Com.Ericmas001.AppMonitor.Xaml;component/Templates/DataElements/RawDataElementTemplate.xaml"/>
-                <!--<ResourceDictionary Source="/Xaml/Templates/ExecutedCommands/TreeContent.xaml"/>
+                <ResourceDictionary Source="/Xaml/Templates/ExecutedCommands/TreeContent.xaml"/>
                 <ResourceDictionary Source="/Xaml/Templates/ExecutedCommands/GlobalTab.xaml"/>
-                <ResourceDictionary Source="/Xaml/Templates/ExecutedCommands/DataTab.xaml"/>-->
+                <ResourceDictionary Source="/Xaml/Templates/ExecutedCommands/DataTab.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -84,8 +83,7 @@
                     </ContentPresenter>
 
                     <!-- Contenu lorsqu'on clique sur un item de l'arbre -->
-                    <!--<ContentPresenter Content="{Binding SelectedTreeElement}" ContentTemplateSelector="{StaticResource ExecutedCommandTreeTS}" />-->
-                    <ContentPresenter Content="{Binding SelectedTreeElement}" />
+                    <ContentPresenter Content="{Binding SelectedTreeElement}" ContentTemplateSelector="{StaticResource ExecutedCommandTreeTS}" />
 
                 </DockPanel>
             </Grid>

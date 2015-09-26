@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using BluffinMuffin.Logger.DBAccess.Enums;
 
 namespace BluffinMuffin.Logger.DBAccess
 {
@@ -11,25 +13,25 @@ namespace BluffinMuffin.Logger.DBAccess
         private const string GAME = "GAME";
 
 
-        private readonly string m_Name;
-        private readonly Server m_Server;
-        private readonly Client m_Client;
-        private readonly string m_Details;
-        private readonly bool m_IsFromServer;
-        private readonly string m_Type;
-        private readonly Game m_Game;
-        private readonly DateTime m_ExecutionTime;
+        public string Name { get; internal set; }
+        public Server Server { get; internal set; }
+        public Client Client { get; internal set; }
+        public string Details { get; internal set; }
+        public bool IsFromServer { get; internal set; }
+        public string Type { get; internal set; }
+        public Game Game { get; internal set; }
+        public DateTime ExecutionTime { get; internal set; }
 
         private Command(string name, Server server, Client client, string details, bool isFromServer, string type, Game game = null)
         {
-            m_Name = name;
-            m_Server = server;
-            m_Client = client;
-            m_Details = details;
-            m_IsFromServer = isFromServer;
-            m_Type = type;
-            m_Game = game;
-            m_ExecutionTime = DateTime.Now;
+            Name = name;
+            Server = server;
+            Client = client;
+            Details = details;
+            IsFromServer = isFromServer;
+            Type = type;
+            Game = game;
+            ExecutionTime = DateTime.Now;
         }
 
         private static void RegisterCommand(string name, Server srv, Client cli, string detail, bool isFromServer, string type, Game g = null)
@@ -41,22 +43,83 @@ namespace BluffinMuffin.Logger.DBAccess
         {
             using (var context = Database.GetContext())
             {
-                var client = context.AllClients.Single(x => x.Id == m_Client.Id);
-                var server = context.AllServers.Single(x => x.Id == m_Server.Id);
-                var game = m_Game == null ? null : context.AllGames.Single(x => x.Id == m_Game.Id);
+                var client = context.AllClients.Single(x => x.Id == Client.Id);
+                var server = context.AllServers.Single(x => x.Id == Server.Id);
+                var game = Game == null ? null : context.AllGames.Single(x => x.Id == Game.Id);
                 var c = new CommandEntity()
                 {
-                    Name = m_Name,
-                    Detail = m_Details,
-                    IsFromServer = m_IsFromServer,
-                    Type = m_Type,
+                    Name = Name,
+                    Detail = Details,
+                    IsFromServer = IsFromServer,
+                    Type = Type,
                     Server = server,
                     Client = client,
-                    ExecutionTime = m_ExecutionTime,
+                    ExecutionTime = ExecutionTime,
                     Game = game
                 };
                 context.AllCommands.Add(c);
                 context.SaveChanges();
+            }
+        }
+
+        public static IEnumerable<string> AllCommandNames()
+        {
+            using (var context = Database.GetContext())
+            {
+                return context.AllCommands.Select(x => x.Name).Distinct().AsEnumerable().ToArray();
+            }
+        } 
+
+        public static IEnumerable<Command> AllCommands()
+        {
+            return GetCommands();
+        }
+
+        public static IEnumerable<Command> AllCommandsOfDate(DateTime d)
+        {
+            return GetCommands(x => x.ExecutionTime.Date == d.Date);
+        }
+
+        public static IEnumerable<Command> AllCommandsOfName(string n)
+        {
+            return GetCommands(x => x.Name == n);
+        }
+
+        private static IEnumerable<Command> GetCommands(Func<CommandEntity,bool> whereClause = null )
+        {
+            using (var context = Database.GetContext())
+            {
+                var xs = whereClause == null ? context.AllCommands.AsEnumerable() : context.AllCommands.Where(whereClause).AsEnumerable();
+                foreach (var x in xs)
+                {
+                    var s = x.Server == null ? null : new Server(x.Server.ServerIdentification, new Version(x.Server.ImplementedProtocol));
+                    var t = x.Game?.TableParam;
+                    yield return new Command(
+                        x.Name,
+                        s,
+                        x.Client == null ? null :
+                        new Client(x.Client.Hostname)
+                        {
+                            DisplayName = x.Client.DisplayName,
+                            ClientIdentification = x.Client.ClientIdentification,
+                            ImplementedProtocol = new Version(x.Client.ImplementedProtocol)
+                        },
+                        x.Detail,
+                        x.IsFromServer,
+                        x.Type,
+                        x.Game == null ? null : new Game(new Table(
+                            t.TableName,
+                            (GameSubTypeEnum)Enum.Parse(typeof(GameSubTypeEnum), t.GameSubType.Name),
+                            t.MinPlayerToStart,
+                            t.MaxPlayer,
+                            (BlindTypeEnum)Enum.Parse(typeof(BlindTypeEnum), t.BlindType.Name),
+                            (LobbyTypeEnum)Enum.Parse(typeof(LobbyTypeEnum), t.LobbyType.Name),
+                            (LimitTypeEnum)Enum.Parse(typeof(LimitTypeEnum), t.LimitType.Name),
+                            s)))
+                    {
+                        ExecutionTime = x.ExecutionTime
+                    };
+                }
             }
         }
 

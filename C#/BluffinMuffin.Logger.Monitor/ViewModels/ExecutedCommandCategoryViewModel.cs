@@ -4,6 +4,7 @@ using System.Linq;
 using BluffinMuffin.Logger.Monitor.DataTypes;
 using BluffinMuffin.Logger.Monitor.DataTypes.Attributes;
 using BluffinMuffin.Logger.Monitor.DataTypes.Enums;
+using BluffinMuffin.Logger.Monitor.ViewModels.Entities.TreeElements;
 using Com.Ericmas001.AppMonitor.DataTypes.TreeElements;
 using Com.Ericmas001.Portable.Util;
 using Com.Ericmas001.Portable.Util.Entities.Filters;
@@ -23,16 +24,16 @@ namespace BluffinMuffin.Logger.Monitor.ViewModels
         }
         protected override void ObtainData(object sender, DoWorkEventArgs e)
         {
-            DataItems.Data = new ExecutedCommand[0];//App.Db.GetExecutedCommands(ExecutedCommand.GetSearchSqlCommand(App.Db.BaseSqlForExecutedCommands, SearchCriteria, Keyword)));
+            DataItems.Data = ExecutedCommand.GetCommands(SearchCriteria, Keyword);
         }
         protected override BaseBranchTreeElement CreateBranch(TreeElementViewModel parent, CriteriaEnum currentCritere, string value, IEnumerable<CriteriaEnum> usedCriteres, LogCategoryEnum category)
         {
-            return null;//new ExecutedCommandsBranch(parent, usedCriteres, currentCritere, category);
+            return new ExecutedCommandBranch(parent, usedCriteres, currentCritere, category);
         }
 
         protected override BaseLeafTreeElement CreateLeaf(TreeElementViewModel parent, ExecutedCommand item, IEnumerable<CriteriaEnum> criteres)
         {
-            return null;//new ExecutedCommandLeaf(parent, criteres, SearchCriteria, LogCategoryEnum.ExecutedCommand, item);
+            return new ExecutedCommandLeaf(parent, criteres, SearchCriteria, LogCategoryEnum.ExecutedCommand, item);
         }
 
         protected override string[] GetAllFiltersCriteria()

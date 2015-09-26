@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using BluffinMuffin.Logger.DBAccess;
 using BluffinMuffin.Logger.Monitor.DataTypes.Enums;
 using Com.Ericmas001.AppMonitor.DataTypes;
 using Com.Ericmas001.Portable.Util;
@@ -19,10 +20,10 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes
         {
         }
 
-        //public override string ToString()
-        //{
-        //    return Info.LogTimeStamp.ToString("yyyy-MM-dd HH:mm:ss.fff") + "  " + Info.RealName;
-        //}
+        public override string ToString()
+        {
+            return $"{Info.DateAndTime:yyyy-MM-dd HH:mm:ss.fff} {(Info.Command.IsFromServer? " -->" : "<-- ")} {Info.Command.Name}";
+        }
 
         public override string ObtainValue(string field)
         {
@@ -37,10 +38,10 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes
                     return "All";
                 case CriteriaEnum.Date:
                     return Date;
-                //case CriteriaEnum.Hour:
-                //    return DateWithHour;
-                //case CriteriaEnum.SourceUrl:
-                //    return Info.SourceUrl;
+                case CriteriaEnum.Hour:
+                    return DateWithHour + "h";
+                case CriteriaEnum.CommandName:
+                    return Info.Command.Name;
                 //case CriteriaEnum.SourceController:
                 //    return Info.SourceController;
                 //case CriteriaEnum.SourceAction:
@@ -67,69 +68,24 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes
         {
             switch (criteria)
             {
-                //case CriteriaEnum.Hour:
-                //    return Time;
+                case CriteriaEnum.Hour:
+                    return Time;
             }
             return ObtainValue(criteria);
         }
 
-        public static SqlCommand GetSearchSqlCommand(string baseSql, CriteriaEnum criteria, string value)
+        public static IEnumerable<ExecutedCommand> GetCommands(CriteriaEnum criteria, string value)
         {
-            SqlCommand command = null;
             switch (criteria)
             {
                 case CriteriaEnum.None:
-                    {
-                        command = new SqlCommand(baseSql);
-                        break;
-                    }
+                    return Command.AllCommands().Select(x => new ExecutedCommand(new ExecutedCommandInfo(x)));
                 case CriteriaEnum.Date:
-                    {
-                        var date1 = DateTime.ParseExact(value, "yyyy-MM-dd", CultureInfo.InvariantCulture).AddHours(-3);
-                        var date2 = date1.AddDays(1).AddMilliseconds(-1);
-                        command = new SqlCommand(baseSql + Environment.NewLine + "WHERE l.[LogTimeStamp] BETWEEN @DateTimeMin and @DateTimeMax");
-                        command.Parameters.Add(new SqlParameter("@DateTimeMin", date1));
-                        command.Parameters.Add(new SqlParameter("@DateTimeMax", date2));
-                        break;
-                    }
-                //case CriteriaEnum.SourceUrl:
-                //    {
-                //        command = new SqlCommand(baseSql + Environment.NewLine + "WHERE se.Url = @SourceUrl");
-                //        command.Parameters.Add(new SqlParameter("@SourceUrl", value));
-                //        break;
-                //    }
-                //case CriteriaEnum.DestUrl:
-                //    {
-                //        command = new SqlCommand(baseSql + Environment.NewLine + "WHERE de.Url = @DestUrl");
-                //        command.Parameters.Add(new SqlParameter("@DestUrl", value));
-                //        break;
-                //    }
-                //case CriteriaEnum.SourceController:
-                //    {
-                //        command = new SqlCommand(baseSql + Environment.NewLine + "WHERE se.Controller = @SourceController");
-                //        command.Parameters.Add(new SqlParameter("@SourceController", value));
-                //        break;
-                //    }
-                //case CriteriaEnum.DestController:
-                //    {
-                //        command = new SqlCommand(baseSql + Environment.NewLine + "WHERE de.Controller = @DestController");
-                //        command.Parameters.Add(new SqlParameter("@DestController", value));
-                //        break;
-                //    }
-                //case CriteriaEnum.SourceAction:
-                //    {
-                //        command = new SqlCommand(baseSql + Environment.NewLine + "WHERE se.Action = @SourceAction");
-                //        command.Parameters.Add(new SqlParameter("@SourceAction", value));
-                //        break;
-                //    }
-                //case CriteriaEnum.DestAction:
-                //    {
-                //        command = new SqlCommand(baseSql + Environment.NewLine + "WHERE de.Action = @DestAction");
-                //        command.Parameters.Add(new SqlParameter("@DestAction", value));
-                //        break;
-                //    }
+                    return Command.AllCommandsOfDate(DateTime.ParseExact(value, "yyyy-MM-dd", CultureInfo.InvariantCulture)).Select(x => new ExecutedCommand(new ExecutedCommandInfo(x)));
+                case CriteriaEnum.CommandName:
+                    return Command.AllCommandsOfName(value).Select(x => new ExecutedCommand(new ExecutedCommandInfo(x)));
             }
-            return command;
+            return new ExecutedCommand[0];
         }
 
         public string ObtainFullName(IEnumerable<CriteriaEnum> criterias)
@@ -138,8 +94,8 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes
             var criteriaEnums = criterias as CriteriaEnum[] ?? criterias.ToArray();
 
             sb.Append(ObtainDateTime(criteriaEnums));
-            //sb.Append(ObtainRealName(criteriaEnums));
-            //sb.Append(ObtainAction(criteriaEnums));
+            sb.Append($"{(Info.Command.IsFromServer ? " -->" : "<-- ")} ");
+            sb.Append($"{Info.Command.Name} ");
 
             return sb.ToString();
         }
@@ -170,10 +126,10 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes
         public string ObtainDateTime(IEnumerable<CriteriaEnum> criterias)
         {
             var criteriaEnums = criterias as CriteriaEnum[] ?? criterias.ToArray();
-            //if (criteriaEnums.Contains(CriteriaEnum.Date) || criteriaEnums.Contains(CriteriaEnum.Hour) || criteriaEnums.Contains(CriteriaEnum.SessionId))
-            //{
-            //    return Time + " ";
-            //}
+            if (criteriaEnums.Contains(CriteriaEnum.Date) || criteriaEnums.Contains(CriteriaEnum.Hour)/* || criteriaEnums.Contains(CriteriaEnum.SessionId)*/)
+            {
+                return Time + " ";
+            }
             return DateAndTime + " ";
         }
         //public string ObtainRealName(IEnumerable<CriteriaEnum> criterias)
@@ -194,8 +150,8 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes
         {
             switch (field)
             {
-                //case CriteriaEnum.Hour:
-                //    return Time;
+                case CriteriaEnum.Hour:
+                    return Time;
             }
             return ObtainValue(field);
         }

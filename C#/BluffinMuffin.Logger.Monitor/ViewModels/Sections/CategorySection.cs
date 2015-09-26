@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BluffinMuffin.Logger.DBAccess;
 using BluffinMuffin.Logger.Monitor.DataTypes.Attributes;
 using BluffinMuffin.Logger.Monitor.DataTypes.Enums;
 using Com.Ericmas001.AppMonitor.DataTypes.ViewModels.Sections;
@@ -18,19 +19,12 @@ namespace BluffinMuffin.Logger.Monitor.ViewModels.Sections
 
         protected override IEnumerable<string> ObtainList(CriteriaEnum crit)
         {
-            //switch (crit)
-            //{
-            //    case CriteriaEnum.SourceUrl:
-            //    case CriteriaEnum.DestUrl:
-            //        return App.Db.GetAllUniqueElements("Url");
-            //    case CriteriaEnum.SourceController:
-            //    case CriteriaEnum.DestController:
-            //        return App.Db.GetAllUniqueElements("Controller");
-            //    case CriteriaEnum.SourceAction:
-            //    case CriteriaEnum.DestAction:
-            //        return App.Db.GetAllUniqueElements("Action");
-            //}
-            return new String[0];
+            switch (crit)
+            {
+                case CriteriaEnum.CommandName:
+                    return Command.AllCommandNames();
+            }
+            return new string[0];
         }
 
         public override BaseTabViewModel CreateContentTab()

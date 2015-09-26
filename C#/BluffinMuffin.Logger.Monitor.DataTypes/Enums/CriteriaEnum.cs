@@ -31,26 +31,26 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes.Enums
         [Priority(10)]
         Date,
 
-        ///// <summary>
-        ///// Hour
-        ///// </summary>
-        //[GroupingCriteria]
-        //[Description("Hour")]
-        //[Tag("[Hour]")]
-        //[Filters(FilterEnum.Time)]
-        //[Priority(15)]
-        //Hour,
+        /// <summary>
+        /// Hour
+        /// </summary>
+        [GroupingCriteria]
+        [Description("Hour")]
+        [Tag("[Hour]")]
+        [Filters(FilterEnum.Time)]
+        [Priority(15)]
+        Hour,
 
-        ///// <summary>
-        ///// Source Url
-        ///// </summary>
-        //[SearchCriteria(FieldTypeEnum.List)]
-        //[GroupingCriteria]
-        //[Description("Source Url")]
-        //[Tag("[SUrl]")]
-        //[Filters(FilterEnum.Text)]
-        //[Priority(100)]
-        //SourceUrl,
+        /// <summary>
+        /// Command Name
+        /// </summary>
+        [SearchCriteria(FieldTypeEnum.List)]
+        [GroupingCriteria]
+        [Description("Command Name")]
+        [Tag("[Name]")]
+        [Filters(FilterEnum.Text)]
+        [Priority(100)]
+        CommandName,
 
         ///// <summary>
         ///// Source Controller
