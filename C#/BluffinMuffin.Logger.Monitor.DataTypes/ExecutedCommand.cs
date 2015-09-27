@@ -10,6 +10,7 @@ using BluffinMuffin.Logger.DBAccess;
 using BluffinMuffin.Logger.Monitor.DataTypes.Enums;
 using Com.Ericmas001.AppMonitor.DataTypes;
 using Com.Ericmas001.Portable.Util;
+using Newtonsoft.Json;
 
 namespace BluffinMuffin.Logger.Monitor.DataTypes
 {
@@ -18,6 +19,33 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes
         public ExecutedCommand(ExecutedCommandInfo info)
             : base(info)
         {
+        }
+
+        protected override Dictionary<string, string> ObtainAllFields()
+        {
+            var res = new Dictionary<string, string>
+            {
+                {"Name", Info.Command.Name},
+                {"IsFromServer", Info.Command.IsFromServer.ToString()},
+                {"Type", Info.Command.Type},
+                {"ExecutionTime", Info.Command.ExecutionTime.ToString("yyyy-MM-dd HH:mm:ss.fff")},
+                {"Server.ServerIdentification", Info.Command.Server?.ServerIdentification},
+                {"Server.ImplementedProtocol", Info.Command.Server?.ImplementedProtocol.ToString(3)},
+                {"Client.ClientIdentification", Info.Command.Client?.ClientIdentification},
+                {"Client.ImplementedProtocol", Info.Command.Client?.ImplementedProtocol?.ToString(3)},
+                {"Client.Hostname", Info.Command.Client?.Hostname},
+                {"Client.DisplayName", Info.Command.Client?.DisplayName},
+                {"Game.Table.TableName", Info.Command.Game?.Table?.TableName},
+                {"Game.Table.GameSubType", Info.Command.Game?.Table?.GameSubType.ToString()},
+                {"Game.Table.MinPlayersToStart", Info.Command.Game?.Table?.MinPlayersToStart.ToString()},
+                {"Game.Table.MaxPlayers", Info.Command.Game?.Table?.MaxPlayers.ToString()},
+                {"Game.Table.Arguments", Info.Command.Game?.Table?.Arguments},
+                {"Game.Table.BlindType", Info.Command.Game?.Table?.BlindType.ToString()},
+                {"Game.Table.LobbyType", Info.Command.Game?.Table?.LobbyType.ToString()},
+                {"Game.Table.LimitType", Info.Command.Game?.Table?.LimitType.ToString()},
+                {"Details", Environment.NewLine + JsonConvert.SerializeObject(JsonConvert.DeserializeObject(Info.Command.Details), Formatting.Indented)},
+            };
+            return res;
         }
 
         public override string ToString()
