@@ -47,10 +47,60 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes.Enums
         [SearchCriteria(FieldTypeEnum.List)]
         [GroupingCriteria]
         [Description("Command Name")]
-        [Tag("[Name]")]
+        [Tag("[Cmd]")]
         [Filters(FilterEnum.Text)]
         [Priority(100)]
         CommandName,
+
+        /// <summary>
+        /// Direction
+        /// </summary>
+        [GroupingCriteria]
+        [Description("Direction")]
+        [Tag("[Dir]")]
+        [Filters(FilterEnum.Text)]
+        [Priority(110)]
+        Direction,
+
+        /// <summary>
+        /// Client
+        /// </summary>
+        [GroupingCriteria]
+        [Description("Client")]
+        [Tag("[Client]")]
+        [Filters(FilterEnum.Text)]
+        [Priority(200)]
+        Client,
+
+        /// <summary>
+        /// Client
+        /// </summary>
+        [GroupingCriteria]
+        [Description("Server")]
+        [Tag("[Server]")]
+        [Filters(FilterEnum.Text)]
+        [Priority(210)]
+        Server,
+
+        /// <summary>
+        /// Table
+        /// </summary>
+        [GroupingCriteria]
+        [Description("Table")]
+        [Tag("[Table]")]
+        [Filters(FilterEnum.Text)]
+        [Priority(230)]
+        Table,
+
+        /// <summary>
+        /// Game
+        /// </summary>
+        [GroupingCriteria]
+        [Description("Game")]
+        [Tag("[Game]")]
+        [Filters(FilterEnum.Text)]
+        [Priority(240)]
+        Game,
 
         ///// <summary>
         ///// Source Controller

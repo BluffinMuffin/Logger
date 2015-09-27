@@ -107,7 +107,10 @@ namespace BluffinMuffin.Logger.DBAccess
             if (!m_Servers.ContainsKey(x.ServerId))
             {
                 var serv = context.AllServers.Single(y => y.Id == x.ServerId);
-                m_Servers.Add(x.ServerId, new Server(serv.ServerIdentification, new Version(serv.ImplementedProtocol)));
+                m_Servers.Add(x.ServerId, new Server(serv.ServerIdentification, new Version(serv.ImplementedProtocol))
+                {
+                    ServerStartedAt = serv.ServerStartedAt
+                });
             }
             return m_Servers[x.ServerId];
         }
@@ -122,7 +125,8 @@ namespace BluffinMuffin.Logger.DBAccess
                 {
                     DisplayName = cli.DisplayName,
                     ClientIdentification = cli.ClientIdentification,
-                    ImplementedProtocol = cli.ImplementedProtocol == null ? null : new Version(cli.ImplementedProtocol)
+                    ImplementedProtocol = cli.ImplementedProtocol == null ? null : new Version(cli.ImplementedProtocol),
+                    ClientStartedAt = cli.ClientStartedAt
                 });
             }
             return m_Clients[x.ClientId];
@@ -136,7 +140,10 @@ namespace BluffinMuffin.Logger.DBAccess
             if (!m_Games.ContainsKey(x.GameId.Value))
             {
                 var gam = context.AllGames.Single(y => y.Id == x.GameId.Value);
-                m_Games.Add(x.GameId.Value, new Game(FindTable(context, gam, s)));
+                m_Games.Add(x.GameId.Value, new Game(FindTable(context, gam, s))
+                {
+                    GameStartedAt = gam.GameStartedAt
+                });
             }
             return m_Games[x.GameId.Value];
         }
@@ -155,7 +162,10 @@ namespace BluffinMuffin.Logger.DBAccess
                     FindBlind(context, tab),
                     FindLobby(context, tab),
                     FindLimit(context, tab),
-                    s));
+                    s)
+                {
+                    TableStartedAt = tab.TableStartedAt
+                });
             }
             return m_Tables[x.TableParamId];
         }

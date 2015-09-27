@@ -31,10 +31,13 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes
                 {"ExecutionTime", Info.Command.ExecutionTime.ToString("yyyy-MM-dd HH:mm:ss.fff")},
                 {"Server.ServerIdentification", Info.Command.Server?.ServerIdentification},
                 {"Server.ImplementedProtocol", Info.Command.Server?.ImplementedProtocol.ToString(3)},
+                {"Server.ServerStartedAt", Info.Command.Server?.ServerStartedAt.ToString("yyyy-MM-dd HH:mm:ss.fff")},
                 {"Client.ClientIdentification", Info.Command.Client?.ClientIdentification},
                 {"Client.ImplementedProtocol", Info.Command.Client?.ImplementedProtocol?.ToString(3)},
                 {"Client.Hostname", Info.Command.Client?.Hostname},
                 {"Client.DisplayName", Info.Command.Client?.DisplayName},
+                {"Client.ClientStartedAt", Info.Command.Client?.ClientStartedAt.ToString("yyyy-MM-dd HH:mm:ss.fff")},
+                {"Game.GameStartedAt", Info.Command.Game?.GameStartedAt.ToString("yyyy-MM-dd HH:mm:ss.fff")},
                 {"Game.Table.TableName", Info.Command.Game?.Table?.TableName},
                 {"Game.Table.GameSubType", Info.Command.Game?.Table?.GameSubType.ToString()},
                 {"Game.Table.MinPlayersToStart", Info.Command.Game?.Table?.MinPlayersToStart.ToString()},
@@ -43,6 +46,7 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes
                 {"Game.Table.BlindType", Info.Command.Game?.Table?.BlindType.ToString()},
                 {"Game.Table.LobbyType", Info.Command.Game?.Table?.LobbyType.ToString()},
                 {"Game.Table.LimitType", Info.Command.Game?.Table?.LimitType.ToString()},
+                {"Game.Table.TableStartedAt", Info.Command.Game?.Table?.TableStartedAt.ToString("yyyy-MM-dd HH:mm:ss.fff")},
                 {"Details", Environment.NewLine + JsonConvert.SerializeObject(JsonConvert.DeserializeObject(Info.Command.Details), Formatting.Indented)},
             };
             return res;
@@ -70,6 +74,16 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes
                     return DateWithHour + "h";
                 case CriteriaEnum.CommandName:
                     return Info.Command.Name;
+                case CriteriaEnum.Direction:
+                    return Info.Command.IsFromServer ? "Server -> Client" : "Client -> Server";
+                case CriteriaEnum.Client:
+                    return $"{(String.IsNullOrEmpty(Info.Command.Client.DisplayName) ? "?Client?" : Info.Command.Client.DisplayName)} {Info.Command.Client.ClientStartedAt.ToString("yyyy-MM-dd HH:mm:ss.fff")}";
+                case CriteriaEnum.Server:
+                    return $"Server {Info.Command.Server.ServerStartedAt.ToString("yyyy-MM-dd HH:mm:ss.fff")}";
+                case CriteriaEnum.Table:
+                    return Info.Command.Game == null ? "-" : $"{Info.Command.Game.Table.TableName} {Info.Command.Game.Table.TableStartedAt.ToString("yyyy-MM-dd HH:mm:ss.fff")}";
+                case CriteriaEnum.Game:
+                    return Info.Command.Game == null ? "-" : $"{Info.Command.Game.Table.TableName} {Info.Command.Game.GameStartedAt.ToString("yyyy-MM-dd HH:mm:ss.fff")}";
                 //case CriteriaEnum.SourceController:
                 //    return Info.SourceController;
                 //case CriteriaEnum.SourceAction:

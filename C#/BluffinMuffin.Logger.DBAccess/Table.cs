@@ -17,6 +17,7 @@ namespace BluffinMuffin.Logger.DBAccess
         public LobbyTypeEnum LobbyType { get; }
         public LimitTypeEnum LimitType { get; }
         public Server Server { get; }
+        public DateTime TableStartedAt { get; internal set; }
 
         public Table(string tableName, GameSubTypeEnum gameSubType, int minPlayersToStart, int maxPlayers, BlindTypeEnum blindType, LobbyTypeEnum lobbyType, LimitTypeEnum limitType, Server server)
         {
@@ -34,6 +35,8 @@ namespace BluffinMuffin.Logger.DBAccess
         {
             if (Id > 0)
                 return;
+
+            TableStartedAt = DateTime.Now;
 
             using (var context = Database.GetContext())
             {
@@ -53,7 +56,7 @@ namespace BluffinMuffin.Logger.DBAccess
                     LimitType = limitType,
                     Server = server,
                     Arguments = Arguments,
-                    TableStartedAt = DateTime.Now
+                    TableStartedAt = TableStartedAt
                 };
                 context.AllTableParams.Add(t);
                 context.SaveChanges();
