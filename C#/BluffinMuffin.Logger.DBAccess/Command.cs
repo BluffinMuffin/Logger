@@ -85,6 +85,16 @@ namespace BluffinMuffin.Logger.DBAccess
             return GetCommands(x => x.Name == n);
         }
 
+        public static IEnumerable<Command> AllCommandsOfGameType(string n)
+        {
+            return GetCommands(x => x.GameId != null && x.Game.TableParam.GameSubType.GameType.Name == n);
+        }
+
+        public static IEnumerable<Command> AllCommandsOfGameSubType(string n)
+        {
+            return GetCommands(x => x.GameId != null && x.Game.TableParam.GameSubType.Name == n);
+        }
+
         private static IEnumerable<Command> GetCommands(Func<CommandEntity,bool> whereClause = null )
         {
             using (var context = Database.GetContext())
@@ -92,8 +102,8 @@ namespace BluffinMuffin.Logger.DBAccess
                 var xs = whereClause == null ? context.AllCommands.AsEnumerable() : context.AllCommands.Where(whereClause).AsEnumerable();
                 foreach (var x in xs)
                 {
-                    var s = FindServer(context, x);
-                    yield return new Command(x.Name, s, FindClient(context, x), x.Detail, x.IsFromServer, x.Type, FindGame(context, x, s))
+                    var s = FindServer(x);
+                    yield return new Command(x.Name, s, FindClient(x), x.Detail, x.IsFromServer, x.Type, FindGame(x, s))
                     {
                         ExecutionTime = x.ExecutionTime
                     };
@@ -102,11 +112,11 @@ namespace BluffinMuffin.Logger.DBAccess
         }
 
         private static readonly Dictionary<int, Server> m_Servers = new Dictionary<int, Server>();
-        private static Server FindServer(BluffinMuffinLogsEntities context, CommandEntity x)
+        private static Server FindServer(CommandEntity x)
         {
             if (!m_Servers.ContainsKey(x.ServerId))
             {
-                var serv = context.AllServers.Single(y => y.Id == x.ServerId);
+                var serv = x.Server;
                 m_Servers.Add(x.ServerId, new Server(serv.ServerIdentification, new Version(serv.ImplementedProtocol))
                 {
                     ServerStartedAt = serv.ServerStartedAt
@@ -116,11 +126,11 @@ namespace BluffinMuffin.Logger.DBAccess
         }
 
         private static readonly Dictionary<int, Client> m_Clients = new Dictionary<int, Client>();
-        private static Client FindClient(BluffinMuffinLogsEntities context, CommandEntity x)
+        private static Client FindClient(CommandEntity x)
         {
             if (!m_Clients.ContainsKey(x.ClientId))
             {
-                var cli = context.AllClients.Single(y => y.Id == x.ClientId);
+                var cli = x.Client;
                 m_Clients.Add(x.ClientId, new Client(cli.Hostname)
                 {
                     DisplayName = cli.DisplayName,
@@ -133,14 +143,14 @@ namespace BluffinMuffin.Logger.DBAccess
         }
 
         private static readonly Dictionary<int, Game> m_Games = new Dictionary<int, Game>();
-        private static Game FindGame(BluffinMuffinLogsEntities context, CommandEntity x, Server s)
+        private static Game FindGame(CommandEntity x, Server s)
         {
             if (x.GameId == null)
                 return null;
             if (!m_Games.ContainsKey(x.GameId.Value))
             {
-                var gam = context.AllGames.Single(y => y.Id == x.GameId.Value);
-                m_Games.Add(x.GameId.Value, new Game(FindTable(context, gam, s))
+                var gam = x.Game;
+                m_Games.Add(x.GameId.Value, new Game(FindTable(gam, s))
                 {
                     GameStartedAt = gam.GameStartedAt
                 });
@@ -149,69 +159,66 @@ namespace BluffinMuffin.Logger.DBAccess
         }
 
         private static readonly Dictionary<int, Table> m_Tables = new Dictionary<int, Table>();
-        private static Table FindTable(BluffinMuffinLogsEntities context, GameEntity x, Server s)
+        private static Table FindTable(GameEntity x, Server s)
         {
             if (!m_Tables.ContainsKey(x.TableParamId))
             {
-                var tab = context.AllTableParams.Single(y => y.Id == x.TableParamId);
+                var tab = x.TableParam;
                 m_Tables.Add(x.TableParamId, new Table(
                     tab.TableName,
-                    FindGameSubType(context, tab),
+                    FindGameSubType(tab),
                     tab.MinPlayerToStart,
                     tab.MaxPlayer,
-                    FindBlind(context, tab),
-                    FindLobby(context, tab),
-                    FindLimit(context, tab),
+                    FindBlind(tab),
+                    FindLobby(tab),
+                    FindLimit(tab),
                     s)
                 {
-                    TableStartedAt = tab.TableStartedAt
+                    TableStartedAt = tab.TableStartedAt,
+                    GameType = FindGameType(tab)
                 });
             }
             return m_Tables[x.TableParamId];
         }
 
         private static readonly Dictionary<int, BlindTypeEnum> m_Blinds = new Dictionary<int, BlindTypeEnum>();
-        private static BlindTypeEnum FindBlind(BluffinMuffinLogsEntities context, TableParamEntity x)
+        private static BlindTypeEnum FindBlind(TableParamEntity x)
         {
             if (!m_Blinds.ContainsKey(x.BlindTypeId))
-            {
-                var b = context.AllBlindTypes.Single(y => y.Id == x.BlindTypeId);
-                m_Blinds.Add(x.BlindTypeId, (BlindTypeEnum)Enum.Parse(typeof(BlindTypeEnum), b.Name));
-            }
+                m_Blinds.Add(x.BlindTypeId, (BlindTypeEnum)Enum.Parse(typeof(BlindTypeEnum), x.BlindType.Name));
             return m_Blinds[x.BlindTypeId];
         }
 
         private static readonly Dictionary<int, LobbyTypeEnum> m_Lobbys = new Dictionary<int, LobbyTypeEnum>();
-        private static LobbyTypeEnum FindLobby(BluffinMuffinLogsEntities context, TableParamEntity x)
+        private static LobbyTypeEnum FindLobby(TableParamEntity x)
         {
             if (!m_Lobbys.ContainsKey(x.LobbyTypeId))
-            {
-                var l = context.AllLobbyTypes.Single(y => y.Id == x.LobbyTypeId);
-                m_Lobbys.Add(x.LobbyTypeId, (LobbyTypeEnum)Enum.Parse(typeof(LobbyTypeEnum), l.Name));
-            }
+                m_Lobbys.Add(x.LobbyTypeId, (LobbyTypeEnum)Enum.Parse(typeof(LobbyTypeEnum), x.LobbyType.Name));
             return m_Lobbys[x.LobbyTypeId];
         }
 
         private static readonly Dictionary<int, LimitTypeEnum> m_Limits = new Dictionary<int, LimitTypeEnum>();
-        private static LimitTypeEnum FindLimit(BluffinMuffinLogsEntities context, TableParamEntity x)
+        private static LimitTypeEnum FindLimit(TableParamEntity x)
         {
             if (!m_Limits.ContainsKey(x.LimitTypeId))
-            {
-                var l = context.AllLimitTypes.Single(y => y.Id == x.LimitTypeId);
-                m_Limits.Add(x.LimitTypeId, (LimitTypeEnum)Enum.Parse(typeof(LimitTypeEnum), l.Name));
-            }
+                m_Limits.Add(x.LimitTypeId, (LimitTypeEnum)Enum.Parse(typeof(LimitTypeEnum), x.LimitType.Name));
             return m_Limits[x.LimitTypeId];
         }
 
         private static readonly Dictionary<int, GameSubTypeEnum> m_GameSubType = new Dictionary<int, GameSubTypeEnum>();
-        private static GameSubTypeEnum FindGameSubType(BluffinMuffinLogsEntities context, TableParamEntity x)
+        private static GameSubTypeEnum FindGameSubType(TableParamEntity x)
         {
             if (!m_GameSubType.ContainsKey(x.GameSubTypeId))
-            {
-                var subtype = context.AllGameSubTypes.Single(y => y.Id == x.GameSubTypeId);
-                m_GameSubType.Add(x.GameSubTypeId, (GameSubTypeEnum)Enum.Parse(typeof(GameSubTypeEnum), subtype.Name));
-            }
+                m_GameSubType.Add(x.GameSubTypeId, (GameSubTypeEnum)Enum.Parse(typeof(GameSubTypeEnum), x.GameSubType.Name));
             return m_GameSubType[x.GameSubTypeId];
+        }
+
+        private static readonly Dictionary<int, GameTypeEnum> m_GameType = new Dictionary<int, GameTypeEnum>();
+        private static GameTypeEnum FindGameType(TableParamEntity x)
+        {
+            if (!m_GameType.ContainsKey(x.GameSubTypeId))
+                m_GameType.Add(x.GameSubTypeId, (GameTypeEnum)Enum.Parse(typeof(GameTypeEnum), x.GameSubType.GameType.Name));
+            return m_GameType[x.GameSubTypeId];
         }
 
         public static void RegisterGeneralCommandFromServer(string name, Server srv, Client cli, string detail)

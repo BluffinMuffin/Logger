@@ -102,6 +102,28 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes.Enums
         [Priority(240)]
         Game,
 
+        /// <summary>
+        /// Game Type
+        /// </summary>
+        [SearchCriteria(FieldTypeEnum.List)]
+        [GroupingCriteria]
+        [Description("Game Type")]
+        [Tag("[Type]")]
+        [Filters(FilterEnum.Text)]
+        [Priority(300)]
+        GameType,
+
+        /// <summary>
+        /// Game Sub Type
+        /// </summary>
+        [SearchCriteria(FieldTypeEnum.List)]
+        [GroupingCriteria]
+        [Description("Game Sub Type")]
+        [Tag("[SType]")]
+        [Filters(FilterEnum.Text)]
+        [Priority(310)]
+        GameSubType,
+
         ///// <summary>
         ///// Source Controller
         ///// </summary>

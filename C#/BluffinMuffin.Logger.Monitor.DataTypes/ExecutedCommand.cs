@@ -39,6 +39,7 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes
                 {"Client.ClientStartedAt", Info.Command.Client?.ClientStartedAt.ToString("yyyy-MM-dd HH:mm:ss.fff")},
                 {"Game.GameStartedAt", Info.Command.Game?.GameStartedAt.ToString("yyyy-MM-dd HH:mm:ss.fff")},
                 {"Game.Table.TableName", Info.Command.Game?.Table?.TableName},
+                {"Game.Table.GameType", Info.Command.Game?.Table?.GameType.ToString()},
                 {"Game.Table.GameSubType", Info.Command.Game?.Table?.GameSubType.ToString()},
                 {"Game.Table.MinPlayersToStart", Info.Command.Game?.Table?.MinPlayersToStart.ToString()},
                 {"Game.Table.MaxPlayers", Info.Command.Game?.Table?.MaxPlayers.ToString()},
@@ -126,6 +127,10 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes
                     return Command.AllCommandsOfDate(DateTime.ParseExact(value, "yyyy-MM-dd", CultureInfo.InvariantCulture)).Select(x => new ExecutedCommand(new ExecutedCommandInfo(x)));
                 case CriteriaEnum.CommandName:
                     return Command.AllCommandsOfName(value).Select(x => new ExecutedCommand(new ExecutedCommandInfo(x)));
+                case CriteriaEnum.GameType:
+                    return Command.AllCommandsOfGameType(value).Select(x => new ExecutedCommand(new ExecutedCommandInfo(x)));
+                case CriteriaEnum.GameSubType:
+                    return Command.AllCommandsOfGameSubType(value).Select(x => new ExecutedCommand(new ExecutedCommandInfo(x)));
             }
             return new ExecutedCommand[0];
         }

@@ -23,6 +23,10 @@ namespace BluffinMuffin.Logger.Monitor.ViewModels.Sections
             {
                 case CriteriaEnum.CommandName:
                     return Command.AllCommandNames();
+                case CriteriaEnum.GameType:
+                    return Table.AllGameTypes();
+                case CriteriaEnum.GameSubType:
+                    return Table.AllGameSubTypes();
             }
             return new string[0];
         }

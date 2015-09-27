@@ -1,6 +1,6 @@
 ﻿namespace BluffinMuffin.Logger.DBAccess
 {
-    internal sealed partial class BluffinMuffinLogsEntities
+    public partial class BluffinMuffinLogsEntities
     {
         public BluffinMuffinLogsEntities(string connString) : base(connString)
         {

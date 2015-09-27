@@ -280,7 +280,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BluffinMuffinLogs" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="ClientEntity" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+        <EntityType Name="ClientEntity" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -292,7 +292,7 @@
           <Property Name="DisplayName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CommandsOfClient" Relationship="Self.FK_Commands_Clients" FromRole="Clients" ToRole="Commands" />
         </EntityType>
-        <EntityType Name="CommandEntity" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+        <EntityType Name="CommandEntity" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -309,7 +309,7 @@
           <NavigationProperty Name="Game" Relationship="Self.FK_Commands_Games" FromRole="Commands" ToRole="Games" />
           <NavigationProperty Name="Server" Relationship="Self.FK_Commands_Servers" FromRole="Commands" ToRole="Servers" />
         </EntityType>
-        <EntityType Name="BlindTypeEntity" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+        <EntityType Name="BlindTypeEntity" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -318,7 +318,7 @@
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TableParamsUsingBlind" Relationship="Self.FK_TableParams_Control_BlindTypes" FromRole="Control_BlindTypes" ToRole="TableParams" />
         </EntityType>
-        <EntityType Name="GameSubTypeEntity" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+        <EntityType Name="GameSubTypeEntity" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -329,7 +329,7 @@
           <NavigationProperty Name="GameType" Relationship="Self.FK_Control_GameSubTypes_Control_GameTypes" FromRole="Control_GameSubTypes" ToRole="Control_GameTypes" />
           <NavigationProperty Name="TableParamsUsingGameSubType" Relationship="Self.FK_TableParams_Control_GameSubTypes" FromRole="Control_GameSubTypes" ToRole="TableParams" />
         </EntityType>
-        <EntityType Name="GameTypeEntity" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+        <EntityType Name="GameTypeEntity" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -338,7 +338,7 @@
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="GameSubTypesOfGameType" Relationship="Self.FK_Control_GameSubTypes_Control_GameTypes" FromRole="Control_GameTypes" ToRole="Control_GameSubTypes" />
         </EntityType>
-        <EntityType Name="LimitTypeEntity" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+        <EntityType Name="LimitTypeEntity" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -347,7 +347,7 @@
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TableParamsUsingLimit" Relationship="Self.FK_TableParams_Control_LimitTypes" FromRole="Control_LimitTypes" ToRole="TableParams" />
         </EntityType>
-        <EntityType Name="LobbyTypeEntity" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+        <EntityType Name="LobbyTypeEntity" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -356,7 +356,7 @@
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TableParamsUsingLobby" Relationship="Self.FK_TableParams_Control_LobbyTypes" FromRole="Control_LobbyTypes" ToRole="TableParams" />
         </EntityType>
-        <EntityType Name="GameEntity" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+        <EntityType Name="GameEntity" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -366,7 +366,7 @@
           <NavigationProperty Name="CommandsOfGame" Relationship="Self.FK_Commands_Games" FromRole="Games" ToRole="Commands" />
           <NavigationProperty Name="TableParam" Relationship="Self.FK_Games_TableParams" FromRole="Games" ToRole="TableParams" />
         </EntityType>
-        <EntityType Name="ServerEntity" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+        <EntityType Name="ServerEntity" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -377,7 +377,7 @@
           <NavigationProperty Name="CommandsOfServer" Relationship="Self.FK_Commands_Servers" FromRole="Servers" ToRole="Commands" />
           <NavigationProperty Name="TableParamsOfServer" Relationship="Self.FK_TableParams_Servers" FromRole="Servers" ToRole="TableParams" />
         </EntityType>
-        <EntityType Name="TableParamEntity" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+        <EntityType Name="TableParamEntity" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -519,7 +519,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="BluffinMuffinLogsEntities" annotation:LazyLoadingEnabled="true" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+        <EntityContainer Name="BluffinMuffinLogsEntities" annotation:LazyLoadingEnabled="true" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <EntitySet Name="AllClients" EntityType="BluffinMuffinLogs.ClientEntity" a:GetterAccess="Internal" />
           <EntitySet Name="AllCommands" EntityType="BluffinMuffinLogs.CommandEntity" a:GetterAccess="Internal" />
           <EntitySet Name="AllBlindTypes" EntityType="BluffinMuffinLogs.BlindTypeEntity" a:GetterAccess="Internal" />
