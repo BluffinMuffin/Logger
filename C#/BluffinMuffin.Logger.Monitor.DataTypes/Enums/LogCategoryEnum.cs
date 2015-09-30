@@ -8,7 +8,7 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes.Enums
     {
         All,
 
-        [Description("Executed Commands")]
+        [EnumDescription("Executed Commands")]
         [Color("LightGreen")]
         [ButtonColor("Green")]
         [ImageSource("ImgLogs16", "ImgLogs32")]

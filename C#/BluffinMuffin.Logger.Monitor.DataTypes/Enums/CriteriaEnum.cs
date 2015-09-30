@@ -15,7 +15,7 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes.Enums
     public enum CriteriaEnum
     {
         [SearchCriteria(FieldTypeEnum.Date)]
-        [Description("Give Me Everything")]
+        [EnumDescription("Give Me Everything")]
         [Tag("[All]")]
         [Priority(999999)]
         None,
@@ -25,7 +25,7 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes.Enums
         /// </summary>
         [SearchCriteria(FieldTypeEnum.Date)]
         [GroupingCriteria]
-        [Description("Date")]
+        [EnumDescription("Date")]
         [Tag("[Date]")]
         [Filters(FilterEnum.Date)]
         [Priority(10)]
@@ -35,7 +35,7 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes.Enums
         /// Hour
         /// </summary>
         [GroupingCriteria]
-        [Description("Hour")]
+        [EnumDescription("Hour")]
         [Tag("[Hour]")]
         [Filters(FilterEnum.Time)]
         [Priority(15)]
@@ -46,7 +46,7 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes.Enums
         /// </summary>
         [SearchCriteria(FieldTypeEnum.List)]
         [GroupingCriteria]
-        [Description("Command Name")]
+        [EnumDescription("Command Name")]
         [Tag("[Cmd]")]
         [Filters(FilterEnum.Text)]
         [Priority(100)]
@@ -56,7 +56,7 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes.Enums
         /// Direction
         /// </summary>
         [GroupingCriteria]
-        [Description("Direction")]
+        [EnumDescription("Direction")]
         [Tag("[Dir]")]
         [Filters(FilterEnum.Text)]
         [Priority(110)]
@@ -66,7 +66,7 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes.Enums
         /// Client
         /// </summary>
         [GroupingCriteria]
-        [Description("Client")]
+        [EnumDescription("Client")]
         [Tag("[Client]")]
         [Filters(FilterEnum.Text)]
         [Priority(200)]
@@ -76,7 +76,7 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes.Enums
         /// Client
         /// </summary>
         [GroupingCriteria]
-        [Description("Server")]
+        [EnumDescription("Server")]
         [Tag("[Server]")]
         [Filters(FilterEnum.Text)]
         [Priority(210)]
@@ -86,7 +86,7 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes.Enums
         /// Table
         /// </summary>
         [GroupingCriteria]
-        [Description("Table")]
+        [EnumDescription("Table")]
         [Tag("[Table]")]
         [Filters(FilterEnum.Text)]
         [Priority(230)]
@@ -96,7 +96,7 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes.Enums
         /// Game
         /// </summary>
         [GroupingCriteria]
-        [Description("Game")]
+        [EnumDescription("Game")]
         [Tag("[Game]")]
         [Filters(FilterEnum.Text)]
         [Priority(240)]
@@ -107,7 +107,7 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes.Enums
         /// </summary>
         [SearchCriteria(FieldTypeEnum.List)]
         [GroupingCriteria]
-        [Description("Game Type")]
+        [EnumDescription("Game Type")]
         [Tag("[Type]")]
         [Filters(FilterEnum.Text)]
         [Priority(300)]
@@ -118,7 +118,7 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes.Enums
         /// </summary>
         [SearchCriteria(FieldTypeEnum.List)]
         [GroupingCriteria]
-        [Description("Game Sub Type")]
+        [EnumDescription("Game Sub Type")]
         [Tag("[SType]")]
         [Filters(FilterEnum.Text)]
         [Priority(310)]
@@ -129,7 +129,7 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes.Enums
         ///// </summary>
         //[SearchCriteria(FieldTypeEnum.List)]
         //[GroupingCriteria]
-        //[Description("Source Controller")]
+        //[EnumDescription("Source Controller")]
         //[Tag("[SCtl]")]
         //[Filters(FilterEnum.Text)]
         //[Priority(110)]
@@ -140,7 +140,7 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes.Enums
         ///// </summary>
         //[SearchCriteria(FieldTypeEnum.List)]
         //[GroupingCriteria]
-        //[Description("Source Action")]
+        //[EnumDescription("Source Action")]
         //[Tag("[SAct]")]
         //[Filters(FilterEnum.Text)]
         //[Priority(120)]
@@ -151,7 +151,7 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes.Enums
         ///// </summary>
         //[SearchCriteria(FieldTypeEnum.List)]
         //[GroupingCriteria]
-        //[Description("Dest Url")]
+        //[EnumDescription("Dest Url")]
         //[Tag("[DUrl]")]
         //[Filters(FilterEnum.Text)]
         //[Priority(200)]
@@ -162,7 +162,7 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes.Enums
         ///// </summary>
         //[SearchCriteria(FieldTypeEnum.List)]
         //[GroupingCriteria]
-        //[Description("Dest Controller")]
+        //[EnumDescription("Dest Controller")]
         //[Tag("[DCtl]")]
         //[Filters(FilterEnum.Text)]
         //[Priority(210)]
@@ -173,7 +173,7 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes.Enums
         ///// </summary>
         //[SearchCriteria(FieldTypeEnum.List)]
         //[GroupingCriteria]
-        //[Description("Dest Action")]
+        //[EnumDescription("Dest Action")]
         //[Tag("[DAct]")]
         //[Filters(FilterEnum.Text)]
         //[Priority(220)]
@@ -183,7 +183,7 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes.Enums
         ///// Session Id
         ///// </summary>
         //[GroupingCriteria]
-        //[Description("Session Id")]
+        //[EnumDescription("Session Id")]
         //[Tag("[Ssid]")]
         //[Filters(FilterEnum.Text)]
         //[Priority(300)]
@@ -193,7 +193,7 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes.Enums
         ///// User Id
         ///// </summary>
         //[GroupingCriteria]
-        //[Description("User Id")]
+        //[EnumDescription("User Id")]
         //[Tag("[Usid]")]
         //[Filters(FilterEnum.Text)]
         //[Priority(400)]
@@ -203,7 +203,7 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes.Enums
         ///// Unique Username
         ///// </summary>
         //[GroupingCriteria]
-        //[Description("Unique Username")]
+        //[EnumDescription("Unique Username")]
         //[Tag("[Usnm]")]
         //[Filters(FilterEnum.Text)]
         //[Priority(410)]
@@ -213,7 +213,7 @@ namespace BluffinMuffin.Logger.Monitor.DataTypes.Enums
         ///// Real Name
         ///// </summary>
         //[GroupingCriteria]
-        //[Description("Real Name")]
+        //[EnumDescription("Real Name")]
         //[Tag("[Name]")]
         //[Filters(FilterEnum.Text)]
         //[Priority(420)]
