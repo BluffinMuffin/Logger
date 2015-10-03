@@ -24,7 +24,7 @@
             <ListBox Grid.Row="1" Grid.Column="0" MinHeight="30" Margin="2"  Name="LstConnections" ItemsSource="{Binding Path=AllEnvironments}" SelectedItem="{Binding Path=SelectedEnvironment}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding}">
+                        <TextBlock Text="{Binding Name}">
                             <TextBlock.InputBindings>
                                 <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}, Path=DataContext.ConnectCommand}" />
                             </TextBlock.InputBindings>

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using BluffinMuffin.Logger.Monitor.DataTypes;
 using BluffinMuffin.Logger.DBAccess;
+using BluffinMuffin.Logger.Monitor.DataTypes.Configuration;
 
 namespace BluffinMuffin.Logger.Monitor
 {
@@ -15,12 +16,20 @@ namespace BluffinMuffin.Logger.Monitor
     /// </summary>
     public partial class App
     {
-        internal static BluffinEnvironment Environment { get; private set; }
+        internal static Dictionary<string, EnvironmentConfigElement> Environments;
+        public App()
+        {
+            // Grab the Environments listed in the App.config and add them to our list.
+            var connectionManagerDataSection = ConfigurationManager.GetSection(BluffinMuffinDataSection.SECTION_NAME) as BluffinMuffinDataSection;
+            if (connectionManagerDataSection != null)
+                Environments = connectionManagerDataSection.Environments.OfType<EnvironmentConfigElement>().ToDictionary(x => x.Name, x => x);
+        }
+        internal static EnvironmentConfigElement Environment { get; private set; }
 
-        internal static void InitEnvironment(BluffinEnvironment environment)
+        internal static void InitEnvironment(EnvironmentConfigElement environment)
         {
             Environment = environment;
-            Database.InitDatabase("turnsol.arvixe.com", "BluffinMuffin_Logger_Test", "1ti3gre2", "BluffinMuffin_Logs_Test");
+            Database.InitDatabase(environment.Url, environment.User, environment.Password, environment.Database);
         }
     }
 }

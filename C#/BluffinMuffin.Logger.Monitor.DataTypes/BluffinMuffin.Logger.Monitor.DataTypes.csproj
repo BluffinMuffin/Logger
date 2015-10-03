@@ -45,6 +45,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -58,9 +59,10 @@
     <Compile Include="Attributes\GroupingCriteriaAttribute.cs" />
     <Compile Include="Attributes\LogCategoryAttribute.cs" />
     <Compile Include="Attributes\SearchCriteriaAttribute.cs" />
-    <Compile Include="BluffinEnvironment.cs" />
+    <Compile Include="Configuration\EnvironmentConfigElement.cs" />
+    <Compile Include="Configuration\EnvironmentsConfigCollection.cs" />
+    <Compile Include="Configuration\BluffinMuffinDataSection.cs" />
     <Compile Include="Enums\CriteriaEnum.cs" />
-    <Compile Include="Enums\EnvironmentEnum.cs" />
     <Compile Include="Enums\LogCategoryEnum.cs" />
     <Compile Include="ExecutedCommand.cs" />
     <Compile Include="ExecutedCommandInfo.cs" />
@@ -75,6 +77,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

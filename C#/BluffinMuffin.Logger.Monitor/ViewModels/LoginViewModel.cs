@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using BluffinMuffin.Logger.Monitor.DataTypes;
+using BluffinMuffin.Logger.Monitor.DataTypes.Configuration;
 using BluffinMuffin.Logger.Monitor.Xaml.Windows;
 using Com.Ericmas001.Wpf;
 using Com.Ericmas001.Wpf.ViewModels;
@@ -11,9 +13,9 @@ namespace BluffinMuffin.Logger.Monitor.ViewModels
 
     public class LoginViewModel : BaseViewModel
     {
-        private BluffinEnvironment m_SelectedEnvironment;
+        private EnvironmentConfigElement m_SelectedEnvironment;
 
-        public BluffinEnvironment SelectedEnvironment
+        public EnvironmentConfigElement SelectedEnvironment
         {
             get { return m_SelectedEnvironment; }
             set
@@ -22,23 +24,10 @@ namespace BluffinMuffin.Logger.Monitor.ViewModels
                 RaisePropertyChanged("SelectedEnvironment");
             }
         }
-        public IEnumerable<BluffinEnvironment> AllEnvironments
-        {
-            get { return BluffinEnvironment.GetAllEnvironments(); }
-        }
+        public IEnumerable<EnvironmentConfigElement> AllEnvironments => App.Environments.Values.ToArray();
 
         private RelayCommand m_ConnectCommand;
-        public ICommand ConnectCommand
-        {
-            get
-            {
-                if (m_ConnectCommand == null)
-                {
-                    m_ConnectCommand = new RelayCommand(x => Connect(), x => m_SelectedEnvironment != null);
-                }
-                return m_ConnectCommand;
-            }
-        }
+        public ICommand ConnectCommand => m_ConnectCommand ?? (m_ConnectCommand = new RelayCommand(x => Connect(), x => m_SelectedEnvironment != null));
 
         private void Connect()
         {
