@@ -7,7 +7,7 @@
         xmlns:helpers="clr-namespace:Com.Ericmas001.Wpf.Helpers;assembly=Com.Ericmas001.Wpf"
         xmlns:vms="clr-namespace:BluffinMuffin.Logger.Monitor.ViewModels.Sections"
         xmlns:views="clr-namespace:Com.Ericmas001.Wpf.Views;assembly=Com.Ericmas001.Wpf"
-        mc:Ignorable="d"
+        mc:Ignorable="d" Icon="/Com.Ericmas001.AppMonitor.Xaml;component/Resources/icon.png"
         Title="{Binding Title}" Height="768" Width="1024" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Window.DataContext>
         <viewModels:MainViewModel />

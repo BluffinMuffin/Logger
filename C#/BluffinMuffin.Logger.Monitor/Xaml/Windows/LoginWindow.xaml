@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:BluffinMuffin.Logger.Monitor.ViewModels"
-        mc:Ignorable="d"
+        mc:Ignorable="d"  Icon="/Com.Ericmas001.AppMonitor.Xaml;component/Resources/icon.png"
         Title="Login - BluffinMuffin Logs Monitor" SizeToContent="Height" Width="400" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <viewModels:LoginViewModel />
