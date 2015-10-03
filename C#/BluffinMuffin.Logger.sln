@@ -20,6 +20,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BluffinMuffin.Logger.Monito
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BluffinMuffin.Logger.Monitor.DataTypes", "BluffinMuffin.Logger.Monitor.DataTypes\BluffinMuffin.Logger.Monitor.DataTypes.csproj", "{870B7F35-F2E3-4044-B203-C2E00A47C3CF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{6852D8BE-FC49-47F4-A9EF-3BC11FA033CB}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
