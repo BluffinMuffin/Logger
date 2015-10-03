@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="BluffinMuffin.Logger.Monitor.Xaml.Views.ExecutedCommandCategoryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:helpers="clr-namespace:Com.Ericmas001.Wpf.Helpers;assembly=Com.Ericmas001.Wpf"
+             xmlns:views="clr-namespace:Com.Ericmas001.Wpf.Views;assembly=Com.Ericmas001.Wpf"
+             xmlns:customControls="clr-namespace:Com.Ericmas001.Wpf.CustomControls;assembly=Com.Ericmas001.Wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Com.Ericmas001.AppMonitor.Xaml;component/Templates/DataElements/RawDataElementTemplate.xaml"/>
+                <ResourceDictionary Source="/Xaml/Templates/ExecutedCommands/TreeContent.xaml"/>
+                <ResourceDictionary Source="/Xaml/Templates/ExecutedCommands/GlobalTab.xaml"/>
+                <ResourceDictionary Source="/Xaml/Templates/ExecutedCommands/DataTab.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+
+
+        <DockPanel>
+
+            <!-- Entete -->
+            <StackPanel DockPanel.Dock="Top">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  >
+
+                    <!-- Image -->
+                    <Image Source="{Binding TabIconBig}" Height="32" Width="32" Stretch="UniformToFill" Margin="0,0,15,0"/>
+
+                    <!-- Titre de la recherche -->
+                    <TextBlock Text="{Binding TabHeader}" FontSize="18" Margin="10"/>
+
+                    <!-- Image -->
+                    <Image Source="{Binding TabIconBig}" Height="32" Width="32" Stretch="UniformToFill" Margin="15,0,0,0"/>
+
+                </StackPanel>
+
+                <!-- Bouton Refresh -->
+                <customControls:CoolButton Width="32" Height="28" ImageMargin="1" Command="{Binding RefreshCommand}" ButtonImage="{StaticResource ImgRefresh32}" Visibility="{Binding CanRefresh, Converter={StaticResource BoolToVisConverter} }" TextImageOrientation="Vertical" ButtonImageSize="24" Style="{StaticResource CoolButtonBlue}" />
+
+                <!-- Panneau rétractable de regroupement -->
+                <Expander HorizontalAlignment="Center" Header="Grouping and Filters" Visibility="{Binding HasGrouping, Converter={StaticResource BoolToVisConverter} }" IsExpanded="{Binding IsGroupExpanded}" Template="{StaticResource StretchyExpanderTemp}" OverridesDefaultStyle="True" Margin="10">
+                    <views:ChooseGroupView DataContext="{Binding ChooseGroupVm}" />
+                </Expander>
+
+            </StackPanel>
+
+
+
+            <!-- Contenu -->
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <GridSplitter Grid.Column="1" ResizeDirection="Columns" Width="5" ShowsPreview="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
+                <!-- Colonne de Gauche (L'arbre des résultats) -->
+                <DockPanel Grid.Column="0">
+
+                    <!-- L'arbre des résultats -->
+                    <TreeView x:Name="TreeOfItems" helpers:TreeViewHelper.SelectedItem="{Binding SelectedTreeElement, Mode=TwoWay}" ItemsSource="{Binding Items}" />
+
+                </DockPanel>
+
+                <!-- Colonne de Droite (Contenu lorsqu'on clique sur un item de l'arbre) -->
+                <DockPanel Grid.Column="2" Visibility="{Binding HasSomethingTreeElementSelected, Converter={StaticResource BoolToVisConverter}}" >
+
+                    <!-- Fil d'Arianne -->
+                    <ContentPresenter DockPanel.Dock="Top" Content="{Binding SelectedTreeElement}" >
+                        <ContentPresenter.ContentTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Path}" TextAlignment="Center" TextWrapping="Wrap" />
+                                    <TextBlock Text="{Binding NameForPath}" TextAlignment="Center" TextWrapping="Wrap" FontWeight="Bold" FontSize="12" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ContentPresenter.ContentTemplate>
+                    </ContentPresenter>
+
+                    <!-- Contenu lorsqu'on clique sur un item de l'arbre -->
+                    <ContentPresenter Content="{Binding SelectedTreeElement}" ContentTemplateSelector="{StaticResource ExecutedCommandTreeTS}" />
+
+                </DockPanel>
+            </Grid>
+        </DockPanel>
+
+        <ContentPresenter Content="{Binding LoadingDataVm}" ContentTemplate="{StaticResource LoadingDataTemplate}" />
+        <ContentPresenter Content="{Binding LoadingTreeVm}" ContentTemplate="{StaticResource LoadingDataTemplate}" />
+    </Grid>
+</UserControl>

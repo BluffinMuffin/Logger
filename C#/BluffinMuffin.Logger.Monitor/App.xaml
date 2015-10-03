@@ -1,0 +1,33 @@
+﻿<Application x:Class="BluffinMuffin.Logger.Monitor.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:Com.Ericmas001.Wpf.Converters;assembly=Com.Ericmas001.Wpf"
+             StartupUri="Xaml/Windows/LoginWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Com.Ericmas001.Wpf;component/Styles/ValidationStyles.xaml"/>
+                <ResourceDictionary Source="/Com.Ericmas001.Wpf;component/Styles/ExpanderStyles.xaml"/>
+                <ResourceDictionary Source="/Com.Ericmas001.Wpf;component/Styles/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="/Com.Ericmas001.Wpf;component/Styles/TreeItemStyles.xaml"/>
+                <ResourceDictionary Source="/Com.Ericmas001.Wpf;component/Resources/ImageResources.xaml"/>
+                <ResourceDictionary Source="/Com.Ericmas001.Wpf;component/Templates/TabTemplate.xaml"/>
+                <ResourceDictionary Source="/Com.Ericmas001.Wpf;component/Templates/LoadingDataTemplate.xaml"/>
+                <ResourceDictionary Source="/Com.Ericmas001.Wpf;component/Templates/SearchInputTemplate.xaml" />
+                <ResourceDictionary Source="/Com.Ericmas001.AppMonitor.Xaml;component/Resources/ImageResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+
+            <converters:EnumMatchToBooleanConverter x:Key="EnumMatchBoolConverter" />
+            <converters:EnumDescriptionConverter x:Key="EnumDescConverter" />
+            <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+
+
+            <DataTemplate x:Key="EnumDescTemplate">
+                <TextBlock Text="{Binding Converter={StaticResource EnumDescConverter}}" />
+            </DataTemplate>
+
+            <DataTemplate x:Key="EmptyTemplate" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

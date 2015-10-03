@@ -12,7 +12,7 @@ namespace BluffinMuffin.Logger.DBAccess
     using System;
     using System.Collections.Generic;
     
-    internal partial class LimitTypeEntity
+    public partial class LimitTypeEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LimitTypeEntity()
@@ -25,6 +25,6 @@ namespace BluffinMuffin.Logger.DBAccess
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        internal virtual ICollection<TableParamEntity> TableParamsUsingLimit { get; set; }
+        public virtual ICollection<TableParamEntity> TableParamsUsingLimit { get; set; }
     }
 }
