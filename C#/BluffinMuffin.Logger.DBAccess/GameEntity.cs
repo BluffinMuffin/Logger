@@ -12,7 +12,7 @@ namespace BluffinMuffin.Logger.DBAccess
     using System;
     using System.Collections.Generic;
     
-    internal partial class GameEntity
+    public partial class GameEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public GameEntity()
@@ -25,7 +25,7 @@ namespace BluffinMuffin.Logger.DBAccess
         public System.DateTime GameStartedAt { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        internal virtual ICollection<CommandEntity> CommandsOfGame { get; set; }
-        internal virtual TableParamEntity TableParam { get; set; }
+        public virtual ICollection<CommandEntity> CommandsOfGame { get; set; }
+        public virtual TableParamEntity TableParam { get; set; }
     }
 }

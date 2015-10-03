@@ -8,10 +8,11 @@ namespace BluffinMuffin.Logger.DBAccess
     {
         internal int Id { get; private set; }
 
-        public string ClientIdentification { get; private set; }
+        public string ClientIdentification { get; internal set; }
         public string Hostname { get; }
-        public string DisplayName { get; private set; }
-        public Version ImplementedProtocol { get; private set; }
+        public string DisplayName { get; internal set; }
+        public Version ImplementedProtocol { get; internal set; }
+        public DateTime ClientStartedAt { get; internal set; }
 
         public Client(string hostname)
         {
@@ -23,9 +24,15 @@ namespace BluffinMuffin.Logger.DBAccess
             if (Id > 0)
                 return;
 
+            ClientStartedAt = DateTime.Now;
+
             using (var context = Database.GetContext())
             {
-                var c = new ClientEntity { ClientStartedAt = DateTime.Now, Hostname = Hostname};
+                var c = new ClientEntity
+                {
+                    ClientStartedAt = ClientStartedAt,
+                    Hostname = Hostname
+                };
                 context.AllClients.Add(c);
                 context.SaveChanges();
                 Id = c.Id;

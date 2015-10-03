@@ -12,7 +12,7 @@ namespace BluffinMuffin.Logger.DBAccess
     using System;
     using System.Collections.Generic;
     
-    internal partial class CommandEntity
+    public partial class CommandEntity
     {
         public int Id { get; set; }
         public System.DateTime ExecutionTime { get; set; }
@@ -24,8 +24,8 @@ namespace BluffinMuffin.Logger.DBAccess
         public Nullable<int> GameId { get; set; }
         public string Detail { get; set; }
     
-        internal virtual ClientEntity Client { get; set; }
-        internal virtual GameEntity Game { get; set; }
-        internal virtual ServerEntity Server { get; set; }
+        public virtual ClientEntity Client { get; set; }
+        public virtual GameEntity Game { get; set; }
+        public virtual ServerEntity Server { get; set; }
     }
 }

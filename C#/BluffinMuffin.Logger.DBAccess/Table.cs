@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BluffinMuffin.Logger.DBAccess.Enums;
 
@@ -10,6 +11,7 @@ namespace BluffinMuffin.Logger.DBAccess
 
         public string TableName { get; }
         public GameSubTypeEnum GameSubType { get; }
+        public GameTypeEnum GameType { get; internal set; }
         public int MinPlayersToStart { get; }
         public int MaxPlayers { get; }
         public string Arguments { get; set; }
@@ -17,6 +19,7 @@ namespace BluffinMuffin.Logger.DBAccess
         public LobbyTypeEnum LobbyType { get; }
         public LimitTypeEnum LimitType { get; }
         public Server Server { get; }
+        public DateTime TableStartedAt { get; internal set; }
 
         public Table(string tableName, GameSubTypeEnum gameSubType, int minPlayersToStart, int maxPlayers, BlindTypeEnum blindType, LobbyTypeEnum lobbyType, LimitTypeEnum limitType, Server server)
         {
@@ -34,6 +37,8 @@ namespace BluffinMuffin.Logger.DBAccess
         {
             if (Id > 0)
                 return;
+
+            TableStartedAt = DateTime.Now;
 
             using (var context = Database.GetContext())
             {
@@ -53,11 +58,27 @@ namespace BluffinMuffin.Logger.DBAccess
                     LimitType = limitType,
                     Server = server,
                     Arguments = Arguments,
-                    TableStartedAt = DateTime.Now
+                    TableStartedAt = TableStartedAt
                 };
                 context.AllTableParams.Add(t);
                 context.SaveChanges();
                 Id = t.Id;
+            }
+        }
+
+        public static IEnumerable<string> AllGameTypes()
+        {
+            using (var context = Database.GetContext())
+            {
+                return context.AllGameTypes.Select(x => x.Name).Distinct().AsEnumerable().ToArray();
+            }
+        }
+
+        public static IEnumerable<string> AllGameSubTypes()
+        {
+            using (var context = Database.GetContext())
+            {
+                return context.AllGameSubTypes.Select(x => x.Name).Distinct().AsEnumerable().ToArray();
             }
         }
     }

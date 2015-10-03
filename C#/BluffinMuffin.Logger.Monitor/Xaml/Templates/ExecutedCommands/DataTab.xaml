@@ -1,0 +1,31 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:customControls="clr-namespace:Com.Ericmas001.Wpf.CustomControls;assembly=Com.Ericmas001.Wpf"
+                    xmlns:data="clr-namespace:BluffinMuffin.Logger.Monitor.ViewModels.Entities.DataElements">
+
+    <DataTemplate DataType="{x:Type data:ExecutedCommandDataElement}">
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Top">
+                <!--<TextBlock FontWeight="Bold" Text="Source" HorizontalAlignment="center" />
+                <TextBlock Text="{Binding Source, Mode=OneWay}" HorizontalAlignment="center" />
+                <TextBlock Margin="0,10,0,0" FontWeight="Bold" Text="Destination" HorizontalAlignment="center" />
+                <TextBlock Text="{Binding Destination, Mode=OneWay}" HorizontalAlignment="center" />
+                <TextBlock Margin="0,10,0,0" FontWeight="Bold" Text="Destination Complete Url" HorizontalAlignment="center" />
+                <customControls:CoolButton Margin="3" TextMargin="0,5,5,5" HorizontalAlignment="Center" Content="Execute" Command="{Binding Path=TryUrlCommand}" TextImageOrientation="Horizontal" FontWeight="Bold" Style="{StaticResource CoolButtonSteel}" />
+                <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Hidden">
+                    <TextBox IsReadOnly="True" Text="{Binding DestinationCompleteUrl, Mode=OneWay}" FontFamily="Consolas" FontSize="12"/>
+                </ScrollViewer>
+                <StackPanel Visibility="{Binding HasParameters, Converter={StaticResource BoolToVisConverter}}">
+                    <TextBlock Margin="0,10,0,0" FontWeight="Bold" Text="Parameters" HorizontalAlignment="center" />
+                    <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" MaxHeight="350">
+                        <TextBox IsReadOnly="True" Text="{Binding ParamsText, Mode=OneWay}"/>
+                    </ScrollViewer>
+                </StackPanel>
+                <TextBlock Margin="0,10,0,0" FontWeight="Bold" Text="Result" HorizontalAlignment="center" />-->
+            </StackPanel>
+            <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+                <TextBox IsReadOnly="True" Text="{Binding Result, Mode=OneWay}"/>
+            </ScrollViewer>
+        </DockPanel>
+    </DataTemplate>
+</ResourceDictionary>
