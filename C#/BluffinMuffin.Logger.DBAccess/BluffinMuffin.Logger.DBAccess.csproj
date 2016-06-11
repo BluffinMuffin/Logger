@@ -136,6 +136,18 @@
       <LastGenOutput>BluffinMuffinLogs.cs</LastGenOutput>
       <DependentUpon>BluffinMuffinLogs.edmx</DependentUpon>
     </Content>
+    <Content Include="Scripts\create_db.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\insert_control.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\Schema.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\schema_entities.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

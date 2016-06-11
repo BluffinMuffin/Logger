@@ -1,17 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BluffinMuffin.Logger.DBAccess", "BluffinMuffin.Logger.DBAccess\BluffinMuffin.Logger.DBAccess.csproj", "{124B3C37-BA72-4648-AE52-5B9DA5F3A241}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{6D9978FD-7592-4479-8596-3B61E8218F39}"
 	ProjectSection(SolutionItems) = preProject
-		..\Sql\create_db.sql = ..\Sql\create_db.sql
 		..\Sql\dbBluffin.txt = ..\Sql\dbBluffin.txt
-		..\Sql\insert_control.sql = ..\Sql\insert_control.sql
-		..\Sql\Schema.png = ..\Sql\Schema.png
-		..\Sql\schema_entities.png = ..\Sql\schema_entities.png
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BluffinMuffin.Logger.DBAccess.Demo", "BluffinMuffin.Logger.DBAccess.Demo\BluffinMuffin.Logger.DBAccess.Demo.csproj", "{2B990BBA-CB11-4D36-96A4-107908A944B0}"
